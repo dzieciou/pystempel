@@ -18,7 +18,7 @@ limitations under the License.
 import importlib.resources as pkg_resources
 from typing import List
 
-from stempel.egothor import Trie, MultiTrie2, Diff
+from stempel.egothor import Trie, MultiTrie2
 from stempel.streams import DataInputStream
 
 
@@ -87,10 +87,10 @@ class StempelStemmer:
         :return: stemmed word, or None if the stem could not be generated.
         """
 
-        cmd = self.stemmer_trie.get_last_on_path(word)
-        if cmd is None:
+        patch = self.stemmer_trie.get_last_on_path(word)
+        if patch is None:
             return None
 
         buffer = list(word)
-        Diff.apply(buffer, cmd)
+        egothor.apply_patch(buffer, patch)
         return ''.join(buffer) if len(buffer) > 0 else None

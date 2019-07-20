@@ -1035,61 +1035,44 @@ class MultiTrie2(MultiTrie):
         return length
 
 
-class Diff:
+def apply_patch(destination, patch):
     """
-    The Diff object generates a patch string.
-
     A patch string is actually a command to a stemmer telling it how to reduce a
     word to its root. For example, to reduce the word teacher to its root teach
     the patch string Db would be generated. This command tells the stemmer to
     delete the last 2 characters from the word teacher to reach the stem (the
     patch commands are applied starting from the last character in order to save
+    :param destination: Destination string
+    :param patch: Patch string
+    :return:
     """
+    if patch is None:
+        return
+    if not destination:
+        return
 
-    def __init__(self, ins=1, del_=1, rep=1, noop=1):
-        """
-        Constructor for the Diff object
-        """
-        self.INSERT = ins
-        self.DELETE = del_
-        self.REPLACE = rep
-        self.NOOP = noop
-        self.sizex = 0
-        self.sizey = 0
+    position = len(destination) - 1
+    for i in range(int(len(patch) / 2)):
+        cmd = patch[2 * i]
+        param = patch[2 * i + 1]
+        par_num = ord(param) - ord('a') + 1
+        if cmd == '-':
+            position -= (par_num - 1)
+        elif cmd == 'R':
+            if position <0 or position >= len(destination):
+                return
+            destination[position] = param
+        elif cmd == 'D':
+            o = position
+            position -= (par_num - 1)
+            if position <0 or position >= len(destination):
+                return
+            destination[position:o + 1] = ''
+        elif cmd == 'I':
+            position += 1
+            if position <0 or position > len(destination):
+                return
+            destination.insert(position, param)
+        position -= 1
 
-    @classmethod
-    def apply(cls, dest, diff):
-        """
-        Apply the given patch string diff to the given string dest
-        :param dest: Destination string
-        :param diff: Patch string
-        :return:
-        """
-        if diff is None:
-            return
-        if not dest:
-            return
 
-        pos = len(dest) - 1
-        for i in range(int(len(diff) / 2)):
-            cmd = diff[2 * i]
-            param = diff[2 * i + 1]
-            par_num = ord(param) - ord('a') + 1
-            if cmd == '-':
-                pos -= (par_num - 1)
-            elif cmd == 'R':
-                if pos <0 or pos >= len(dest):
-                    return
-                dest[pos] = param
-            elif cmd == 'D':
-                o = pos
-                pos -= (par_num - 1)
-                if pos <0 or pos >= len(dest):
-                    return
-                dest[pos:o + 1] = ''
-            elif cmd == 'I':
-                pos += 1
-                if pos <0 or pos > len(dest):
-                    return
-                dest.insert(pos, param)
-            pos -= 1
