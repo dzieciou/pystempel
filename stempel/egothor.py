@@ -52,8 +52,6 @@
    individuals  on  behalf  of  the  Egothor  Project  and was originally
    created by Leo Galambos (Leo.G@seznam.cz).
 """
-from typing import List
-
 from sortedcontainers import SortedDict
 
 from stempel.streams import DataInputStream, DataOutputStream
@@ -1079,5 +1077,3 @@ def apply_patch(destination, patch):
                 return
             destination.insert(position, param)
         position -= 1
-
-

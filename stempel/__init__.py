@@ -16,9 +16,9 @@ limitations under the License.
 """
 
 import importlib.resources as pkg_resources
-from typing import List
 
 from stempel.egothor import Trie, MultiTrie2
+from stempel import egothor
 from stempel.streams import DataInputStream
 
 
