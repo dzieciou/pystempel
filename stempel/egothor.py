@@ -52,10 +52,10 @@
    individuals  on  behalf  of  the  Egothor  Project  and was originally
    created by Leo Galambos (Leo.G@seznam.cz).
 """
+from typing import List
 
 from sortedcontainers import SortedDict
 
-from stempel.mutable import MutableString
 from stempel.streams import DataInputStream, DataOutputStream
 
 
@@ -973,7 +973,7 @@ class MultiTrie2(MultiTrie):
             parts += 1
             i = next_ + 2 if i == next_ else next_
 
-        part = MutableString(' ' * parts)
+        part = list(' ' * parts)
         x = 0
         i = 0
         while 0 <= i < len(cmd):
@@ -1067,8 +1067,6 @@ class Diff:
         """
         if diff is None:
             return
-        if not isinstance(dest, MutableString):
-            raise ValueError
         if not dest:
             return
 

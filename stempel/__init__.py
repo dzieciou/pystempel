@@ -16,9 +16,9 @@ limitations under the License.
 """
 
 import importlib.resources as pkg_resources
+from typing import List
 
 from stempel.egothor import Trie, MultiTrie2, Diff
-from stempel.mutable import MutableString
 from stempel.streams import DataInputStream
 
 
@@ -91,6 +91,6 @@ class StempelStemmer:
         if cmd is None:
             return None
 
-        buffer = MutableString(word)
+        buffer = list(word)
         Diff.apply(buffer, cmd)
-        return str(buffer) if len(buffer) > 0 else None
+        return ''.join(buffer) if len(buffer) > 0 else None
