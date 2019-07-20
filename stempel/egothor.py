@@ -58,6 +58,11 @@ from sortedcontainers import SortedDict
 
 from stempel.streams import DataInputStream, DataOutputStream
 
+DASH_COMMAND = '-'
+DELETE_COMMAND = 'D'
+INSERT_COMMAND = 'I'
+REPLACE_COMMAND = 'R'
+
 
 def reverse(s):
     return s[::-1]
@@ -879,7 +884,7 @@ class MultiTrie2(MultiTrie):
             else:
                 last_ch = r[len(r) - 2]
             p[i] = r
-            if p[i][0] == '-':
+            if p[i][0] == DASH_COMMAND:
                 if i > 0:
                     key = self.__skip(key, self.__length_pp(p[i - 1]))
                 key = self.__skip(key, self.__length_pp(p[i]))
@@ -910,7 +915,7 @@ class MultiTrie2(MultiTrie):
             else:
                 last_ch = r[-2]
             p[i] = r
-            if p[i][0] == '-':
+            if p[i][0] == DASH_COMMAND:
                 if i > 0:
                     key = self.__skip(key, self.__length_pp(p[i - 1]))
                     if key is None:
@@ -949,7 +954,7 @@ class MultiTrie2(MultiTrie):
                 last_key = key
             else:
                 self.tries[i].add(last_key, p[i])
-            if p[i] and p[i][0] == '-':
+            if p[i] and p[i][0] == DASH_COMMAND:
                 if i > 0:
                     key = self.__skip(key, self.__length_pp(p[i - 1]))
                 key = self.__skip(key, self.__length_pp(p[i]))
@@ -1002,7 +1007,7 @@ class MultiTrie2(MultiTrie):
 
     @staticmethod
     def __cannot_follow(after, goes):
-        return after in ['-', 'D'] and after == goes
+        return after in [DASH_COMMAND, DELETE_COMMAND] and after == goes
 
     def __skip(self, s, count):
         if self.forward:
@@ -1013,7 +1018,7 @@ class MultiTrie2(MultiTrie):
     @staticmethod
     def __dash_even(s, from_):
         while from_ < len(s):
-            if s[from_] == '-':
+            if s[from_] == DASH_COMMAND:
                 return from_
             else:
                 from_ += 2
@@ -1024,11 +1029,11 @@ class MultiTrie2(MultiTrie):
         length = 0
         i = 0
         while i < len(cmd):
-            if cmd[i] in ['-', 'D']:
+            if cmd[i] in [DASH_COMMAND, DELETE_COMMAND]:
                 length += ord(cmd[i + 1]) - ord('a') + 1
-            elif cmd[i] == 'R':
+            elif cmd[i] == REPLACE_COMMAND:
                 length += 1
-            elif cmd[i] == 'I':
+            elif cmd[i] == INSERT_COMMAND:
                 pass
             i += 2
 
@@ -1056,19 +1061,19 @@ def apply_patch(destination, patch):
         cmd = patch[2 * i]
         param = patch[2 * i + 1]
         par_num = ord(param) - ord('a') + 1
-        if cmd == '-':
+        if cmd == DASH_COMMAND:
             position -= (par_num - 1)
-        elif cmd == 'R':
+        elif cmd == REPLACE_COMMAND:
             if position <0 or position >= len(destination):
                 return
             destination[position] = param
-        elif cmd == 'D':
+        elif cmd == DELETE_COMMAND:
             o = position
             position -= (par_num - 1)
             if position <0 or position >= len(destination):
                 return
             destination[position:o + 1] = ''
-        elif cmd == 'I':
+        elif cmd == INSERT_COMMAND:
             position += 1
             if position <0 or position > len(destination):
                 return
