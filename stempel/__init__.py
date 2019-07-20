@@ -64,9 +64,7 @@ class StempelStemmer:
         return StempelStemmer(stemmer_table)
 
     @classmethod
-    def __trie_from_stream(cls, inp):
-        if not isinstance(inp, DataInputStream):
-            raise ValueError
+    def __trie_from_stream(cls, inp: DataInputStream):
         method = inp.read_utf().upper()
         if 'M' in method:
             return MultiTrie2.from_stream(inp)

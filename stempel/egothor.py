@@ -110,9 +110,7 @@ class Row:
     uniform_skip = 0
 
     @classmethod
-    def from_stream(cls, stream):
-        if not isinstance(stream, DataInputStream):
-            raise ValueError
+    def from_stream(cls, stream: DataInputStream):
         cells = SortedDict()
         cells_count = stream.read_int()
         for _ in range(cells_count):
@@ -215,13 +213,11 @@ class Row:
         except KeyError:
             return -1
 
-    def store(self, out):
+    def store(self, out: DataOutputStream):
         """
         Write the contents of this Row to the given output stream.
         :param out: the output stream
         """
-        if not isinstance(out, DataOutputStream):
-            raise ValueError
         for c, cell in self.cells.items():
             if cell.is_in_use():
                 out.write_char(c)
@@ -266,13 +262,44 @@ class Row:
 def __str__(self):
     return str([f'[{ch}:{cell}]' for ch, cell in self.cells.items()])
 
+class Reduce:
+    """
+    The Reduce object is used to remove gaps in a Trie which stores a
+    dictionary.
+    """
+
+    def optimize(self, orig):
+        """
+        Optimize (remove holes in the rows) the given Trie and return the
+        restructured Trie.
+        :param orig: the Trie to optimize
+        :return: the restructured Trie
+        """
+        rows = []
+        remap = [-1] * len(orig.rows)
+        rows = self._remove_gaps(ind=orig.root,
+                                 old_rows=rows,
+                                 to_rows=[],
+                                 remap=remap)
+        return Trie(forward=orig.forward,
+                    root=remap[orig.root],
+                    cmds=orig.cmds,
+                    rows=rows)
+
+    def _remove_gaps(self, ind, old_rows, to_rows, remap):
+        remap[ind] = len(to_rows)
+        now = old_rows[ind]
+        to_rows.append(now)
+        for _, cell in now.cells.items():
+            if cell.ref >= 0 > remap[cell.ref]:
+                self._remove_gaps(cell.ref, old_rows, to_rows, remap)
+        to_rows[remap[ind]] = Remap(now, remap)
+        return to_rows
 
 class Trie:
 
     @classmethod
-    def from_stream(cls, stream):
-        if not isinstance(stream, DataInputStream):
-            return ValueError
+    def from_stream(cls, stream: DataInputStream):
         forward = stream.read_boolean()
         root = stream.read_int()
         cmds = []
@@ -368,9 +395,7 @@ class Trie:
         w = now.get_cmd(key[-1])
         return self.cmds[w] if w >= 0 else last
 
-    def store(self, out):
-        if not isinstance(out, DataOutputStream):
-            raise ValueError
+    def store(self, out: DataOutputStream):
         out.write_boolean(self.forward)
         out.write_int(self.root)
         out.write_int(len(self.cmds))
@@ -415,14 +440,12 @@ class Trie:
 
         row.set_cmd(key[-1], id_cmd)
 
-    def reduce(self, by):
+    def reduce(self, by: Reduce):
         """
         Remove empty rows from the given Trie and return the newly reduced Trie.
         :param by: the Trie to reduce
         :return: the newly reduced Trie
         """
-        if not isinstance(by, Reduce):
-            raise ValueError
         return by.optimize(self)
 
     def print_info(self, prefix):
@@ -445,39 +468,7 @@ class Remap(Row):
             self.cells[ch] = new_cell
 
 
-class Reduce:
-    """
-    The Reduce object is used to remove gaps in a Trie which stores a
-    dictionary.
-    """
 
-    def optimize(self, orig):
-        """
-        Optimize (remove holes in the rows) the given Trie and return the
-        restructured Trie.
-        :param orig: the Trie to optimize
-        :return: the restructured Trie
-        """
-        rows = []
-        remap = [-1] * len(orig.rows)
-        rows = self._remove_gaps(ind=orig.root,
-                                 old_rows=rows,
-                                 to_rows=[],
-                                 remap=remap)
-        return Trie(forward=orig.forward,
-                    root=remap[orig.root],
-                    cmds=orig.cmds,
-                    rows=rows)
-
-    def _remove_gaps(self, ind, old_rows, to_rows, remap):
-        remap[ind] = len(to_rows)
-        now = old_rows[ind]
-        to_rows.append(now)
-        for _, cell in now.cells.items():
-            if cell.ref >= 0 > remap[cell.ref]:
-                self._remove_gaps(cell.ref, old_rows, to_rows, remap)
-        to_rows[remap[ind]] = Remap(now, remap)
-        return to_rows
 
 
 class Optimizer(Reduce):
@@ -739,10 +730,8 @@ class MultiTrie(Trie):
     BY = 1
 
     @classmethod
-    def from_stream(cls, stream, clazz):
-        if not isinstance(stream, DataInputStream):
-            raise ValueError
-        t = clazz()
+    def from_stream(cls, stream: DataOutputStream, constructor):
+        t = constructor()
         t.forward = stream.read_boolean()
         t.BY = stream.read_int()
         tries_count = stream.read_int()
@@ -788,13 +777,11 @@ class MultiTrie(Trie):
             result += r
         return result
 
-    def store(self, output):
+    def store(self, output: DataOutputStream):
         """
         Write this data structure to the given output stream.
         :param output: the output stream
         """
-        if not isinstance(output, DataOutputStream):
-            raise ValueError
         output.write_boolean(self.forward)
         output.write_int(self.BY)
         output.write_int(len(self.tries))
@@ -927,13 +914,11 @@ class MultiTrie2(MultiTrie):
 
         return result
 
-    def store(self, output):
+    def store(self, output: DataOutputStream):
         """
         Write this data structure to the given output stream.
         :param output: the output stream
         """
-        if not isinstance(output, DataOutputStream):
-            raise ValueError
         super().store(output)
 
     def add(self, key, cmd):
