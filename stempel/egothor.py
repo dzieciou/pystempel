@@ -1071,36 +1071,25 @@ class Diff:
             return
 
         pos = len(dest) - 1
-        try:
-            for i in range(int(len(diff) / 2)):
-                cmd = diff[2 * i]
-                param = diff[2 * i + 1]
-                par_num = ord(param) - ord('a') + 1
-                if cmd == '-':
-                    pos -= (par_num - 1)
-                elif cmd == 'R':
-                    cls.__check_index(dest, pos)
-                    dest[pos] = param
-                elif cmd == 'D':
-                    o = pos
-                    pos -= (par_num - 1)
-                    cls.__check_index(dest, pos)
-                    dest[pos:o + 1] = ''
-                elif cmd == 'I':
-                    pos += 1
-                    cls.__check_offset(dest, pos)
-                    dest.insert(pos, param)
-                pos -= 1
-        except IndexError:
-            # swallow, same thing happens in original Java version
-            pass
-
-    @classmethod
-    def __check_index(cls, s, index):
-        if index < 0 or index >= len(s):
-            raise IndexError
-
-    @classmethod
-    def __check_offset(cls, s, offset):
-        if offset < 0 or offset > len(s):
-            raise IndexError
+        for i in range(int(len(diff) / 2)):
+            cmd = diff[2 * i]
+            param = diff[2 * i + 1]
+            par_num = ord(param) - ord('a') + 1
+            if cmd == '-':
+                pos -= (par_num - 1)
+            elif cmd == 'R':
+                if pos <0 or pos >= len(dest):
+                    return
+                dest[pos] = param
+            elif cmd == 'D':
+                o = pos
+                pos -= (par_num - 1)
+                if pos <0 or pos >= len(dest):
+                    return
+                dest[pos:o + 1] = ''
+            elif cmd == 'I':
+                pos += 1
+                if pos <0 or pos > len(dest):
+                    return
+                dest.insert(pos, param)
+            pos -= 1
