@@ -22,7 +22,7 @@ from stempel.mutable import MutableString
 from stempel.streams import DataInputStream
 
 
-class StempelStemmer(object):
+class StempelStemmer:
 
     @classmethod
     def default(cls):

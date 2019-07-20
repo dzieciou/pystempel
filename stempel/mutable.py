@@ -16,7 +16,7 @@ limitations under the License.
 """
 
 
-class MutableString(object):
+class MutableString:
     def __init__(self, data):
         if not isinstance(data, str):
             raise ValueError

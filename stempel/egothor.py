@@ -63,7 +63,7 @@ def reverse(s):
     return s[::-1]
 
 
-class Cell(object):
+class Cell:
     """
     A Cell is a portion of a trie.
     """
@@ -99,7 +99,7 @@ class Cell(object):
         return self.__str__()
 
 
-class Row(object):
+class Row:
     """
     The Row class represents a row in a matrix representation of a trie.
     """
@@ -264,7 +264,7 @@ def __str__(self):
     return str([f'[{ch}:{cell}]' for ch, cell in self.cells.items()])
 
 
-class Trie(object):
+class Trie:
 
     @classmethod
     def from_stream(cls, stream):
@@ -442,7 +442,7 @@ class Remap(Row):
             self.cells[ch] = new_cell
 
 
-class Reduce(object):
+class Reduce:
     """
     The Reduce object is used to remove gaps in a Trie which stores a
     dictionary.
@@ -1035,7 +1035,7 @@ class MultiTrie2(MultiTrie):
         return length
 
 
-class Diff(object):
+class Diff:
     """
     The Diff object generates a patch string.
 
