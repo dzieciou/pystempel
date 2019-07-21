@@ -1032,33 +1032,36 @@ def apply_patch(destination, patch):
     patch commands are applied starting from the last character in order to save
     :param destination: Destination string
     :param patch: Patch string
-    :return:
     """
+    def parse(patch):
+        for i in range(int(len(patch) / 2)):
+            cmd = patch[2 * i]
+            letter = patch[2 * i + 1]
+            offset = ord(letter) - ord('a')
+            yield cmd, letter, offset
+
     if patch is None:
         return
     if not destination:
         return
 
     position = len(destination) - 1
-    for i in range(int(len(patch) / 2)):
-        cmd = patch[2 * i]
-        param = patch[2 * i + 1]
-        par_num = ord(param) - ord('a') + 1
+    for cmd, letter, offset in parse(patch):
         if cmd == DASH_COMMAND:
-            position -= (par_num - 1)
+            position -= offset
         elif cmd == REPLACE_COMMAND:
             if position <0 or position >= len(destination):
                 return
-            destination[position] = param
+            destination[position] = letter
         elif cmd == DELETE_COMMAND:
-            o = position
-            position -= (par_num - 1)
+            original_position = position
+            position -= offset
             if position <0 or position >= len(destination):
                 return
-            destination[position:o + 1] = ''
+            destination[position:original_position + 1] = ''
         elif cmd == INSERT_COMMAND:
             position += 1
             if position <0 or position > len(destination):
                 return
-            destination.insert(position, param)
+            destination.insert(position, letter)
         position -= 1
