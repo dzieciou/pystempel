@@ -3,13 +3,15 @@ import os
 from setuptools import find_packages, setup
 
 REQUIRED_PYTHON = [3, 7]
-version = '1.0'
+version = '1.0.1'
 
 
 def read(fname):
-    with open(os.path.join(os.path.dirname(__file__), fname)) as f:
+    fpath = os.path.join(os.path.dirname(__file__), fname)
+    with open(fpath, encoding='utf-8') as f:
         return f.read()
 
+print(read('README.rst'))
 
 setup(
     name='pystempel',
@@ -58,3 +60,4 @@ setup(
         'Source': 'https://github.com/dzieciou/pystempel',
     },
 )
+

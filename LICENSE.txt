@@ -1,0 +1,7 @@
+Most of the code is covered by `Egothor Open Source License`_, an Apache-style license. The rest of
+the code and pretrained stemming table are covered by the `Apache License 2.0`_. Unit tests use the
+Free Polish dictionary for use in spell-checking from `sjp.pl`_ , covered by `Apache License 2.0`_
+as well.
+
+.. _Egothor Open Source License: https://www.egothor.org/product/egothor2/
+.. _Apache License 2.0: https://www.apache.org/licenses/LICENSE-2.0
