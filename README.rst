@@ -95,6 +95,7 @@ To run benchmark:
 
 .. code:: console
 
+    set PYTHONPATH=%PYTHONPATH%;%cd%
     python tests\test_benchmark.py
 
 Licensing
