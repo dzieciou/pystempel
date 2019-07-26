@@ -39,7 +39,7 @@ Use in your code:
 
   >>> from stempel import StempelStemmer
   >>> stemmer = StempelStemmer.default()
-  >>> for word in ['książki', 'książki', 'książkami', 'książkowa', 'książkowymi']:
+  >>> for word in ['książka', 'książki', 'książkami', 'książkowa', 'książkowymi']:
   ...   print(stemmer.stem(word))
   ...
   książek
