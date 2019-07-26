@@ -1,6 +1,9 @@
 Stempel Stemmer
 ===============
 
+.. image:: https://badge.fury.io/py/pystempel.svg
+    :target: https://badge.fury.io/py/pystempel
+
 Python port of Stempel, an algorithmic stemmer for Polish language, originally written in Java.
 
 The original stemmer has been implemented as part of `Egothor Project`_, taken virtually unchanged to
