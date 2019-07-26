@@ -1,6 +1,9 @@
 Stempel Stemmer
 ===============
 
+.. image:: https://badge.fury.io/py/pystempel.svg
+    :target: https://badge.fury.io/py/pystempel
+
 Python port of Stempel, an algorithmic stemmer for Polish language, originally written in Java.
 
 The original stemmer has been implemented as part of `Egothor Project`_, taken virtually unchanged to
@@ -36,7 +39,7 @@ Use in your code:
 
   >>> from stempel import StempelStemmer
   >>> stemmer = StempelStemmer.default()
-  >>> for word in ['książki', 'książki', 'książkami', 'książkowa', 'książkowymi']:
+  >>> for word in ['książka', 'książki', 'książkami', 'książkowa', 'książkowymi']:
   ...   print(stemmer.stem(word))
   ...
   książek
@@ -92,6 +95,7 @@ To run benchmark:
 
 .. code:: console
 
+    set PYTHONPATH=%PYTHONPATH%;%cd%
     python tests\test_benchmark.py
 
 Licensing
