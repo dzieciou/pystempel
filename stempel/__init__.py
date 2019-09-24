@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import importlib.resources as pkg_resources
+import importlib_resources as pkg_resources
 
 from stempel.egothor import Trie, MultiTrie2
 from stempel import egothor

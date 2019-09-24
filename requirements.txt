@@ -1,4 +1,0 @@
-sortedcontainers
-pytest
-Cython
-pyjnius

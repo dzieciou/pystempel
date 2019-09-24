@@ -42,8 +42,8 @@ words = list(base.load_words(dict_fpath))
 port_time = measure_stemming_time(python_stemmer, words)
 wrapper_time = measure_stemming_time(java_stemmer, words)
 
-print(f'Words: {len(words)}')
-print(f'Python port stemming time: {port_time} '
-      f'({port_time / len(words)}/word) ')
-print(f'    Wrapper stemming time: {wrapper_time} '
-      f'({wrapper_time / len(words)}/word) ')
+print('Words: %d'.format(len(words)))
+print('Python port stemming time: %f '
+      '(%f/word) '.format(port_time, port_time / len(words)))
+print('    Wrapper stemming time: %f '
+      '(%f/word) '.format(wrapper_time, wrapper_time / len(words)))

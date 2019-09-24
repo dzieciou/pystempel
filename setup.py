@@ -2,8 +2,8 @@ import os
 
 from setuptools import find_packages, setup
 
-REQUIRED_PYTHON = [3, 7]
-version = '1.0.1'
+REQUIRED_PYTHON = [3, 5]
+version = '1.0.2'
 
 
 def read(fname):
@@ -46,7 +46,7 @@ setup(
         'Operating System :: MacOS :: MacOS X',
         'Operating System :: Microsoft :: Windows',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3 :: Only',
         'Topic :: Scientific/Engineering',
         'Topic :: Scientific/Engineering :: Artificial Intelligence',
