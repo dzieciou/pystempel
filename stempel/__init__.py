@@ -33,6 +33,14 @@ class StempelStemmer:
         return cls.from_resource('stemmer_20000.tbl')
 
     @classmethod
+    def polimorf(cls):
+        """
+        Construct a stemmer using default stemming trie.
+        :return: stemmer instance.
+        """
+        return cls.from_resource('stemmer_polimorf.tbl')
+
+    @classmethod
     def from_resource(cls, file):
         """
         Construct a stemmer using stemming table from a given file in the
@@ -40,8 +48,10 @@ class StempelStemmer:
         :param file: file containing stemming trie.
         :return: stemmer instance.
         """
+        # TODO Check after building a distribution
+        file_size = pkg_resources.Path('stempel', file).stat().st_size
         with pkg_resources.open_binary('stempel', file) as inp:
-            return cls.from_stream(DataInputStream(inp))
+            return cls.from_stream(DataInputStream(inp, file_size))
 
     @classmethod
     def from_file(cls, file):
@@ -50,8 +60,9 @@ class StempelStemmer:
         :param file: file containing stemming trie.
         :return: stemmer instance.
         """
+        # TODO Add support for file size
         with open(file, 'rb') as f:
-            return cls.from_stream(DataInputStream(f))
+            return cls.from_stream(DataInputStream(f, 575904768))
 
     @classmethod
     def from_stream(cls, stream):

@@ -35,7 +35,7 @@ setup(
     license='See documentation',
     packages=find_packages(exclude=['tests']),
     package_data={'': ['stemmer_20000.tbl']},
-    install_requires=['sortedcontainers'],
+    install_requires=['sortedcontainers', 'tqdm'],
     zip_safe=False,
     classifiers=[
         'Intended Audience :: Developers',
