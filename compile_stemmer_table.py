@@ -2,12 +2,13 @@
 Compile stemmer table from rules.
 """
 
+import gzip
 import os
+import shutil
 import subprocess
 from collections import defaultdict
 from pathlib import Path
-import gzip
-import shutil
+
 from smart_open import open
 
 
@@ -55,6 +56,7 @@ def compile_stemmer_table(jar_fpath, algorithm, rules_fpath):
                     algorithm,
                     rules_fpath])
 
+
 def extract_compile(dict_fpath, stemmer_tbl_fpath):
     extract_rules(dict_fpath, 'rules.txt')
     compile_stemmer_table('stempel-8.1.1.jar',
@@ -64,14 +66,10 @@ def extract_compile(dict_fpath, stemmer_tbl_fpath):
     os.replace('rules.txt.out', stemmer_tbl_fpath)
 
 
-
 if __name__ == '__main__':
     extract_compile('dicts/polimorf-20190818.tab.gz',
-                  'stempel/stemmer_polimorf.tbl')
+                    'stempel/stemmer_polimorf.tbl')
     with open('stempel/stemmer_polimorf.tbl', 'rb') as f_in:
         with gzip.open('stempel/stemmer_polimorf.tbl.gz',
-                           mode='wb', compresslevel=9) as f_out:
+                       mode='wb', compresslevel=9) as f_out:
             shutil.copyfileobj(f_in, f_out)
-
-
-
