@@ -4,9 +4,15 @@ from smart_open import open
 
 
 def load_morfeusz2_dict(fpath):
+    def skip_comments(f):
+        comments = 0
+        while comments < 3:
+            line = f.readline()
+            if line.startswith('#'):
+                comments += 1
+
     with open(fpath, 'r', encoding='utf-8') as lines:
-        for _ in range(40):  # FIXME improve
-            next(lines)
+        skip_comments(lines)
         dict = defaultdict(list)
         for line in lines:
             orth, lemma, *rest = line.split('\t', 2)
@@ -17,7 +23,8 @@ def load_morfeusz2_dict(fpath):
 def save_dict(dict, fpath):
     with open(fpath, 'w', encoding='utf-8') as f:
         for lemma, forms in dict.items():
-            if len(forms) >= 4 and len(lemma) < 9 and lemma[0].islower():
+            # Exclude proper names and lemmas with few forms
+            if lemma[0].islower() and len(forms) >= 4:
                 f.write('{} {}\n'.format(lemma, ' '.join(forms)))
 
 
