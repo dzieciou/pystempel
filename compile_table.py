@@ -15,7 +15,7 @@ def compile_stemmer_table(jar_fpath, algorithm, rules_fpath):
 
 if __name__ == '__main__':
     compile_stemmer_table('stempel-8.1.1.jar',
-                          algorithm='-0M',
+                          algorithm='-0ME2',
                           rules_fpath='rules.txt')
     assert Path('rules.txt.out').exists()
     os.replace('rules.txt.out', 'stempel/stemmer_polimorf.tbl')
