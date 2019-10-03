@@ -61,9 +61,14 @@ class StempelStemmer:
         :param fpath: path to the file containing stemming trie.
         :return: stemmer instance.
         """
-        file_size = get_uncompressed_size(fpath)
-        with gzip.open(fpath, 'rb') as f:
-            return cls.from_stream(DataInputStream(f, file_size))
+        if fpath.endswith('.gz'):
+            file_size = get_uncompressed_size(fpath)
+            with gzip.open(fpath, 'rb') as f:
+                return cls.from_stream(DataInputStream(f, file_size))
+        else:
+            file_size = os.stat(fpath).st_size
+            with open(fpath, 'rb') as f:
+                return cls.from_stream(DataInputStream(f, file_size))
 
     @classmethod
     def from_stream(cls, stream):

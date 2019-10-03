@@ -22,7 +22,7 @@ import pytest
 import tests.base as base
 
 pwd = os.path.dirname(os.path.abspath(__file__))
-stemmer_table_fpath = os.path.join(pwd, '..', 'stempel', 'stemmer_20000.tbl')
+stemmer_table_fpath = os.path.join(pwd, '..', 'data', 'stemmer_20000.tbl')
 jar_fpath = os.path.join(os.getcwd(), 'stempel-8.1.1.jar')
 dict_fpath = os.path.join(pwd, 'sjp_dict.txt')
 
