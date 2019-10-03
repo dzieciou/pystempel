@@ -34,8 +34,8 @@ setup(
     ],
     license='See documentation',
     packages=find_packages(exclude=['tests']),
-    package_data={'': ['data/*.tbl.gz']},
-    exclude_package_data={'': ['data/*.tbl']},
+    package_data={'': ['data/original/*.tbl.gz', 'data/polimorf/*.tbl.gz']},
+    exclude_package_data={'': ['data/original/*.tbl', 'data/polimorf/*.tbl']},
     install_requires=['sortedcontainers', 'tqdm'],
     zip_safe=False,
     classifiers=[

@@ -14,12 +14,11 @@ a free and open-source search engine library.
 .. _Stempel Stemmer Java library: http://www.getopt.org/stempel/index.html
 .. _Apache Lucene: https://lucene.apache.org/core/3_1_0/api/contrib-stempel/index.html
 
-This package includes also high-quality stemming table for Polish with 20,000 training sets,
-pretrained by Andrzej Białecki.
+This package includes also high-quality stemming tables for Polish: original one pretrained by
+Andrzej Białecki on 20,000 training sets, and new one, pretrained on 259,080 training sets
+from Polimorf dictionary by me.
 
 The port does not include code for compiling stemming tables.
-
-
 
 .. _sjp.pl: https://sjp.pl/slownik/en/
 
@@ -100,14 +99,20 @@ To run benchmark:
 Licensing
 ------------------
 
-Most of the code is covered by `Egothor Open Source License`_, an Apache-style license. The rest of
-the code and pretrained stemming table are covered by the `Apache License 2.0`_. Unit tests use the
-Free Polish dictionary for use in spell-checking from `sjp.pl`_ , covered by `Apache License 2.0`_
-as well.
+* Most of the code is covered by `Egothor Open Source License`_, an Apache-style license. The rest
+of the code is covered by the `Apache License 2.0`_.
+* Original pretrained stemming table is covered by `Apache License 2.0`.
+* New pretrained stemming table is covered by `2-Clause BSD License`, similarly to the `Polimorf
+dictionary` which it has been derived from. The copyright owner of both stemming table and the
+dictionary is `Institute of Computer Science at Polish Academy of Science` (IPI PAN).
+* Polish dictionary used by the unit tests comes from for use in from `sjp.pl`_  and is covered by
+`Apache License 2.0`_as well.
 
 .. _Egothor Open Source License: https://www.egothor.org/product/egothor2/
 .. _Apache License 2.0: https://www.apache.org/licenses/LICENSE-2.0
-
+.. _Polimorf dictionary: dicts/
+.. _2-Clause BSD License: data/polimorf/LICENSE.txt
+.. _Institute of Computer Science at Polish Academy of Science: https://ipipan.waw.pl/en/
 
 
 
