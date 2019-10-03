@@ -80,9 +80,8 @@ To setup environment for development you will need `Anaconda`_ installed.
 
 .. code:: console
 
-    conda create -n stempel-stemmer
-    conda activate stempel-stemmer
-    conda install -c conda-forge --file requirements.txt
+    conda env create --file environment.yml
+    conda activate pystempel-env
 
 To run tests:
 
