@@ -99,19 +99,20 @@ To run benchmark:
 Licensing
 ------------------
 
-* Most of the code is covered by `Egothor Open Source License`_, an Apache-style license. The rest
-  of the code is covered by the `Apache License 2.0`_.
+* Most of the code is covered by `Egothor`_ Open Source License, an Apache-style license. The rest
+  of the code is covered by the `Apache License 2.0`_. This should be clear from preamble of each
+  file.
 
 * Original pretrained stemming table is covered by `Apache License 2.0`_.
 
 * New pretrained stemming table is covered by `2-Clause BSD License`_, similarly to the `Polimorf dictionary`_
-  which it has been derived from. The copyright owner of both stemming table and the
-  dictionary is `Institute of Computer Science at Polish Academy of Science`_ (IPI PAN).
+  it has been derived from. The copyright owner of both stemming table and the dictionary is
+  `Institute of Computer Science at Polish Academy of Science`_ (IPI PAN).
 
-* Polish dictionary used by the unit tests comes from for use in from `sjp.pl`_  and is covered by
+* Polish dictionary used by the unit tests comes from from `sjp.pl`_  and is covered by
   `Apache License 2.0`_ as well.
 
-.. _Egothor Open Source License: https://www.egothor.org/product/egothor2/
+.. _Egothor: https://www.egothor.org/product/egothor2/
 .. _Apache License 2.0: https://www.apache.org/licenses/LICENSE-2.0
 .. _Polimorf dictionary: dicts/
 .. _2-Clause BSD License: data/polimorf/LICENSE.txt
