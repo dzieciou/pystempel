@@ -15,10 +15,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import importlib.resources as pkg_resources
+import gzip
+import os
 
-from stempel.egothor import Trie, MultiTrie2
 from stempel import egothor
+from stempel.egothor import Trie, MultiTrie2
 from stempel.streams import DataInputStream
 
 
@@ -30,28 +31,44 @@ class StempelStemmer:
         Construct a stemmer using default stemming trie.
         :return: stemmer instance.
         """
-        return cls.from_resource('stemmer_20000.tbl')
+        return cls.from_resource('stemmer_20000.tbl.gz')
 
     @classmethod
-    def from_resource(cls, file):
+    def polimorf(cls):
+        """
+        Construct a stemmer using default stemming trie.
+        :return: stemmer instance.
+        """
+        return cls.from_resource('stemmer_polimorf.tbl.gz')
+
+    @classmethod
+    def from_resource(cls, fname):
         """
         Construct a stemmer using stemming table from a given file in the
         stempel package.
-        :param file: file containing stemming trie.
+        :param file: name of file inside the library containing stemming trie.
         :return: stemmer instance.
         """
-        with pkg_resources.open_binary('stempel', file) as inp:
-            return cls.from_stream(DataInputStream(inp))
+        # TODO https://setuptools.readthedocs.io/en/latest/setuptools.html#setting-the-zip-safe-flag
+        package_dir = os.path.dirname(os.path.abspath(__file__))
+        fpath = os.path.join(package_dir, fname)
+        return cls.from_file(fpath)
 
     @classmethod
-    def from_file(cls, file):
+    def from_file(cls, fpath):
         """
         Construct a stemmer using stemming table from a given file.
-        :param file: file containing stemming trie.
+        :param fpath: path to the file containing stemming trie.
         :return: stemmer instance.
         """
-        with open(file, 'rb') as f:
-            return cls.from_stream(DataInputStream(f))
+        if fpath.endswith('.gz'):
+            file_size = get_uncompressed_size(fpath)
+            with gzip.open(fpath, 'rb') as f:
+                return cls.from_stream(DataInputStream(f, file_size))
+        else:
+            file_size = os.stat(fpath).st_size
+            with open(fpath, 'rb') as f:
+                return cls.from_stream(DataInputStream(f, file_size))
 
     @classmethod
     def from_stream(cls, stream):
@@ -92,3 +109,10 @@ class StempelStemmer:
         buffer = list(word)
         egothor.apply_patch(buffer, patch)
         return ''.join(buffer) if len(buffer) > 0 else None
+
+import struct
+
+def get_uncompressed_size(fpath):
+    with open(fpath, 'rb') as f:
+        f.seek(-4, 2)
+        return struct.unpack('I', f.read(4))[0]

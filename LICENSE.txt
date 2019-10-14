@@ -1,7 +1,14 @@
-Most of the code is covered by `Egothor Open Source License`_, an Apache-style license. The rest of
-the code and pretrained stemming table are covered by the `Apache License 2.0`_. Unit tests use the
-Free Polish dictionary for use in spell-checking from `sjp.pl`_ , covered by `Apache License 2.0`_
-as well.
+* **Code**: Most of the code is covered by `Egothor`_ Open Source License, an Apache-style license.
+  The rest of the code is covered by the `Apache License 2.0`_. This should be clear from a preamble
+  of each file.
 
-.. _Egothor Open Source License: https://www.egothor.org/product/egothor2/
-.. _Apache License 2.0: https://www.apache.org/licenses/LICENSE-2.0
+* **Data**:
+
+  * The original pretrained stemming table is covered by `Apache License 2.0`_.
+
+  * The new pretrained stemming table is covered by `2-Clause BSD License`_, similarly to the
+    `Polimorf dictionary` it has been derived from. The copyright owner of both the stemming table
+    and the dictionary is `Institute of Computer Science at Polish Academy of Science`_ (IPI PAN).
+
+  * Polish dictionary used by the unit tests comes from `sjp.pl`_  and is covered by
+    `Apache License 2.0`_ as well.
