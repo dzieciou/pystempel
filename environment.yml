@@ -4,12 +4,15 @@ name: pystempel-env
 channels:
   - conda-forge
 dependencies:
-  - python=3.5
+  - python=3.7
   - pip
-  - pip:
-    - sortedcontainers
-    - pytest
-    - Cython
-    - pyjnius
-    - smart_open
-    - tqdm
+  - pywin32
+  - Cython
+  - sortedcontainers
+  - pytest
+  - pyjnius
+  - smart_open
+  - tqdm
+  - jupyterlab
+  - pandas
+  - matplotlib
