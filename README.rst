@@ -73,7 +73,7 @@ The stemmer for the default stemming table is *understemming*, i.e., for multipl
 same lemma provides different stems more often (63%) than when using Polimorf-based stemming table
 (13%). However, the file footprint of the latter is bigger (2.2MB vs 0.3MB). Also loading takes
 longer (7.5 seconds vs. 1.3 seconds), though this happens only onece, when stemmer is created. Also,
- for original stemming table, the stemmer stems slightly faster: ~60000 vs ~51000 words per second.
+for original stemming table, the stemmer stems slightly faster: ~60000 vs ~51000 words per second.
 See `Evaluation Jupyter Notebook`_ for detailed evaluation results.
 
 .. _Evaluation Jupyter Notebook: Evaluation.ipynb
