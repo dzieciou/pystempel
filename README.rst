@@ -114,7 +114,7 @@ To run benchmark:
     python tests\test_benchmark.py
 
 Licensing
-------------------
+---------
 
 * **Code**: Most of the code is covered by `Egothor`_ Open Source License, an Apache-style license.
   The rest of the code is covered by the `Apache License 2.0`_. This should be clear from a preamble
@@ -124,9 +124,9 @@ Licensing
 
   * The original pretrained stemming table is covered by `Apache License 2.0`_.
 
-  * New pretrained stemming table is covered by `2-Clause BSD License`_, similarly to the `Polimorf dictionary`_
-    it has been derived from. The copyright owner of both the stemming table and the dictionary is
-    `Institute of Computer Science at Polish Academy of Science`_ (IPI PAN).
+  * The new pretrained stemming table is covered by `2-Clause BSD License`_, similarly to the
+    `Polimorf dictionary` it has been derived from. The copyright owner of both the stemming table
+    and the dictionary is `Institute of Computer Science at Polish Academy of Science`_ (IPI PAN).
 
   * Polish dictionary used by the unit tests comes from `sjp.pl`_  and is covered by
     `Apache License 2.0`_ as well.
