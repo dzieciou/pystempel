@@ -4,7 +4,7 @@ name: pystempel-env
 channels:
   - conda-forge
 dependencies:
-  - python=3.7
+  - python=3.5
   - pip
   - pip:
     - sortedcontainers

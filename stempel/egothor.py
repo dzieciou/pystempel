@@ -96,7 +96,10 @@ class Cell:
         return self.cmd >= 0 or self.ref >= 0
 
     def __str__(self):
-        return f'ref({self.ref})cmd({self.cmd})cnt({self.cnt})skp({self.skip})'
+        return 'ref(%s)cmd(%s)cnt(%s)skp({%s})'.format(self.ref,
+                                                       self.cmd,
+                                                       self.cnt,
+                                                       self.skip)
 
     def __repr__(self):
         return self.__str__()
@@ -260,7 +263,10 @@ class Row:
 
 
 def __str__(self):
-    return str([f'[{ch}:{cell}]' for ch, cell in self.cells.items()])
+    return str(['[%s:%s]'.format(ch, cell)
+                for ch, cell
+                in self.cells.items()])
+
 
 class Reduce:
     """
@@ -295,6 +301,7 @@ class Reduce:
                 self._remove_gaps(cell.ref, old_rows, to_rows, remap)
         to_rows[remap[ind]] = Remap(now, remap)
         return to_rows
+
 
 class Trie:
 
@@ -449,9 +456,15 @@ class Trie:
         return by.optimize(self)
 
     def print_info(self, prefix):
-        print(f'{prefix}nds {len(self.rows)} cmds {len(self.cmds)} '
-              f'cells {self.get_cells()} valcells {self.get_cells_val()}'
-              f'pntcells {self.get_cells_pnt()}')
+        print('prefix %s nds %d cmds %d '
+              'cells %s valcells %s'
+              'pntcells %s'.format(prefix,
+                                   len(self.rows),
+                                   len(self.cmds),
+                                   self.get_cells(),
+                                   self.get_cells_val(),
+                                   self.get_cells_pnt()
+                                   ))
 
 
 class Remap(Row):
@@ -466,9 +479,6 @@ class Remap(Row):
             if cell.ref >= 0:
                 new_cell.ref = remap[new_cell.ref]
             self.cells[ch] = new_cell
-
-
-
 
 
 class Optimizer(Reduce):
@@ -830,7 +840,7 @@ class MultiTrie(Trie):
         c = 0
         for trie in self.tries:
             c += 1
-            trie.print_info(f'{prefix} [{c}] ')
+            trie.print_info('%s [%d] '.format(prefix, c))
 
 
 class MultiTrie2(MultiTrie):
@@ -1034,6 +1044,7 @@ def apply_patch(destination, patch):
     :param destination: Destination string
     :param patch: Patch string
     """
+
     def parse(patch):
         for i in range(int(len(patch) / 2)):
             cmd = patch[2 * i]
@@ -1051,18 +1062,18 @@ def apply_patch(destination, patch):
         if cmd == DASH_COMMAND:
             position -= offset
         elif cmd == REPLACE_COMMAND:
-            if position <0 or position >= len(destination):
+            if position < 0 or position >= len(destination):
                 return
             destination[position] = letter
         elif cmd == DELETE_COMMAND:
             original_position = position
             position -= offset
-            if position <0 or position >= len(destination):
+            if position < 0 or position >= len(destination):
                 return
             destination[position:original_position + 1] = ''
         elif cmd == INSERT_COMMAND:
             position += 1
-            if position <0 or position > len(destination):
+            if position < 0 or position > len(destination):
                 return
             destination.insert(position, letter)
         position -= 1

@@ -18,5 +18,5 @@ limitations under the License.
 from stempel import StempelStemmer
 
 def test_polimorf():
-    stemmer = StempelStemmer.from_file('../data/stemmer_polimorf.tbl')
+    stemmer = StempelStemmer.from_file('../data/polimorf/stemmer_polimorf.tbl.gz')
     assert stemmer.stem('jabłkami') == 'jabłko'
