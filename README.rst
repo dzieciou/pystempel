@@ -8,11 +8,12 @@ Python port of Stempel, an algorithmic stemmer for Polish language, originally w
 
 The original stemmer has been implemented as part of `Egothor Project`_, taken virtually unchanged to
 `Stempel Stemmer Java library`_ by Andrzej Białecki and next included as part of `Apache Lucene`_,
-a free and open-source search engine library.
+a free and open-source search engine library. It is also used by `Elastic Search`_ search engine.
 
 .. _Egothor Project: https://www.egothor.org/product/egothor2/
 .. _Stempel Stemmer Java library: http://www.getopt.org/stempel/index.html
 .. _Apache Lucene: https://lucene.apache.org/core/3_1_0/api/contrib-stempel/index.html
+.. _Elastic Search: https://www.elastic.co/guide/en/elasticsearch/plugins/current/analysis-stempel.html
 
 This package includes also high-quality stemming tables for Polish: original one pretrained by
 Andrzej Białecki on 20,000 training sets, and new one, pretrained on 259,080 training sets
@@ -37,7 +38,23 @@ Use in your code:
 .. code:: python
 
   >>> from stempel import StempelStemmer
+
+Choose original (called default) version of a stemmer:
+
+.. code:: python
+
   >>> stemmer = StempelStemmer.default()
+
+or a version with new stemming table pretrained on training sets from Polimorf dictionary:
+
+.. code:: python
+
+ >>> stemmer = StempelStemmer.polimorf()
+
+Stem:
+
+.. code:: python
+
   >>> for word in ['książka', 'książki', 'książkami', 'książkowa', 'książkowymi']:
   ...   print(stemmer.stem(word))
   ...
@@ -99,18 +116,20 @@ To run benchmark:
 Licensing
 ------------------
 
-* Most of the code is covered by `Egothor`_ Open Source License, an Apache-style license. The rest
-  of the code is covered by the `Apache License 2.0`_. This should be clear from a preamble of each
-  file.
+* **Code**: Most of the code is covered by `Egothor`_ Open Source License, an Apache-style license.
+  The rest of the code is covered by the `Apache License 2.0`_. This should be clear from a preamble
+  of each file.
 
-* The original pretrained stemming table is covered by `Apache License 2.0`_.
+* **Data**:
 
-* New pretrained stemming table is covered by `2-Clause BSD License`_, similarly to the `Polimorf dictionary`_
-  it has been derived from. The copyright owner of both the stemming table and the dictionary is
-  `Institute of Computer Science at Polish Academy of Science`_ (IPI PAN).
+  * The original pretrained stemming table is covered by `Apache License 2.0`_.
 
-* Polish dictionary used by the unit tests comes from `sjp.pl`_  and is covered by
-  `Apache License 2.0`_ as well.
+  * New pretrained stemming table is covered by `2-Clause BSD License`_, similarly to the `Polimorf dictionary`_
+    it has been derived from. The copyright owner of both the stemming table and the dictionary is
+    `Institute of Computer Science at Polish Academy of Science`_ (IPI PAN).
+
+  * Polish dictionary used by the unit tests comes from `sjp.pl`_  and is covered by
+    `Apache License 2.0`_ as well.
 
 .. _Egothor: https://www.egothor.org/product/egothor2/
 .. _Apache License 2.0: https://www.apache.org/licenses/LICENSE-2.0
@@ -120,10 +139,15 @@ Licensing
 
 
 
-Other languages
-------------------
+Alternatives
+------------
 
 * `Estem`_ is Erlang wrapper (not port) for Stempel stemmer.
+* `pl_stemmer`_ is a Python stemmer based on Porter's Algorithm.
+* `polish-stem`_ is a Python stemmer using Finite State Transducers.
+
 
 .. _Estem: https://github.com/arcusfelis/estem
+.. _pl_stemmer: https://github.com/Tutanchamon/pl_stemmer
+.. _polish-stem: https://github.com/eugeniashurko/polish-stem
 
