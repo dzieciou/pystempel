@@ -3,7 +3,7 @@ import os
 from setuptools import find_packages, setup
 
 REQUIRED_PYTHON = [3, 5]
-version = '1.0.2'
+version = '1.1.0'
 
 
 def read(fname):
@@ -34,8 +34,9 @@ setup(
     ],
     license='See documentation',
     packages=find_packages(exclude=['tests']),
-    package_data={'': ['stemmer_20000.tbl']},
-    install_requires=['sortedcontainers'],
+    package_data={'': ['data/original/*.tbl.gz', 'data/polimorf/*.tbl.gz']},
+    exclude_package_data={'': ['data/original/*.tbl', 'data/polimorf/*.tbl']},
+    install_requires=['sortedcontainers', 'tqdm'],
     zip_safe=False,
     classifiers=[
         'Intended Audience :: Developers',

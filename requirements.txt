@@ -1,0 +1,7 @@
+sortedcontainers
+pytest
+Cython
+pyjnius
+smart_open
+tqdm
+

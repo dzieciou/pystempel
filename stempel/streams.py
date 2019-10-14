@@ -16,11 +16,25 @@ limitations under the License.
 """
 
 import struct
+from tqdm import tqdm
+
+class ProgressStream:
+
+    def __init__(self, stream, total_bytes):
+        self.stream = stream
+        self.pbar = tqdm(total=total_bytes, desc='Loading', unit='bytes')
+
+    def read(self, size):
+        self.pbar.update(size)
+        return self.stream.read(size)
 
 
 class DataInputStream:
-    def __init__(self, stream):
-        self.stream = stream
+    def __init__(self, stream, total_bytes = None):
+        if total_bytes is None:
+            self.stream = stream
+        else:
+            self.stream = ProgressStream(stream, total_bytes)
 
     def read_boolean(self):
         return struct.unpack('?', self.stream.read(1))[0]

@@ -736,7 +736,7 @@ class MultiTrie(Trie):
     EOM = '*'
     EOM_NODE = EOM
 
-    tries = []
+
     BY = 1
 
     @classmethod
@@ -756,6 +756,7 @@ class MultiTrie(Trie):
              right
         """
         super().__init__(forward=forward)
+        self.tries = []
 
     def get_fully(self, key):
         """

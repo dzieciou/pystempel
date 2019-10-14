@@ -1,10 +1,15 @@
+# run: conda env create --file environment.yml
+
 name: pystempel-env
 channels:
   - conda-forge
 dependencies:
   - python=3.5
-  - importlib_resources
-  - sortedcontainers
-  - pytest
-  - Cython
-  - pyjnius
+  - pip
+  - pip:
+    - sortedcontainers
+    - pytest
+    - Cython
+    - pyjnius
+    - smart_open
+    - tqdm
