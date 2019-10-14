@@ -19,27 +19,9 @@ import gzip
 import os
 import shutil
 import subprocess
-from collections import defaultdict
 from pathlib import Path
 
-from smart_open import open
-
-
-def load_morfeusz2_dict(fpath):
-    def skip_comments(f):
-        comments = 0
-        while comments < 3:
-            line = f.readline()
-            if line.startswith('#'):
-                comments += 1
-
-    with open(fpath, 'r', encoding='utf-8') as lines:
-        skip_comments(lines)
-        dict = defaultdict(list)
-        for line in lines:
-            orth, lemma, *rest = line.split('\t', 2)
-            dict[lemma].append(orth)
-    return dict
+import morfeusz2
 
 
 def save_dict(dict, fpath):
@@ -51,7 +33,7 @@ def save_dict(dict, fpath):
 
 
 def extract_rules(dict_fpath, rule_fpath):
-    dict = load_morfeusz2_dict(dict_fpath)
+    dict = morfeusz2.load_dict(dict_fpath)
     save_dict(dict, rule_fpath)
 
 
