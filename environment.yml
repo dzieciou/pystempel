@@ -16,3 +16,4 @@ dependencies:
   - jupyterlab
   - pandas
   - matplotlib
+  - twine
