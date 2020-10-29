@@ -108,7 +108,7 @@ compare both approaches to help you decide:
 Options
 -------
 
-To disable a progress bar when loading stemming tables, set environment variable `DISABLE_TQDM=True`.
+To disable a progress bar when loading stemming tables, set environment variable ``DISABLE_TQDM=True``.
 
 Development setup
 -----------------
