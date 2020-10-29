@@ -24,14 +24,13 @@ from stempel.streams import DataInputStream
 
 
 class StempelStemmer:
-
     @classmethod
     def default(cls):
         """
         Construct a stemmer using default stemming trie.
         :return: stemmer instance.
         """
-        return cls.from_resource('stemmer_20000.tbl.gz')
+        return cls.from_resource("stemmer_20000.tbl.gz")
 
     @classmethod
     def polimorf(cls):
@@ -39,7 +38,7 @@ class StempelStemmer:
         Construct a stemmer using default stemming trie.
         :return: stemmer instance.
         """
-        return cls.from_resource('stemmer_polimorf.tbl.gz')
+        return cls.from_resource("stemmer_polimorf.tbl.gz")
 
     @classmethod
     def from_resource(cls, fname):
@@ -61,13 +60,13 @@ class StempelStemmer:
         :param fpath: path to the file containing stemming trie.
         :return: stemmer instance.
         """
-        if fpath.endswith('.gz'):
+        if fpath.endswith(".gz"):
             file_size = get_uncompressed_size(fpath)
-            with gzip.open(fpath, 'rb') as f:
+            with gzip.open(fpath, "rb") as f:
                 return cls.from_stream(DataInputStream(f, file_size))
         else:
             file_size = os.stat(fpath).st_size
-            with open(fpath, 'rb') as f:
+            with open(fpath, "rb") as f:
                 return cls.from_stream(DataInputStream(f, file_size))
 
     @classmethod
@@ -83,7 +82,7 @@ class StempelStemmer:
     @classmethod
     def __trie_from_stream(cls, inp: DataInputStream):
         method = inp.read_utf().upper()
-        if 'M' in method:
+        if "M" in method:
             return MultiTrie2.from_stream(inp)
         else:
             return Trie.from_stream(inp)
@@ -108,11 +107,13 @@ class StempelStemmer:
 
         buffer = list(word)
         egothor.apply_patch(buffer, patch)
-        return ''.join(buffer) if len(buffer) > 0 else None
+        return "".join(buffer) if len(buffer) > 0 else None
+
 
 import struct
 
+
 def get_uncompressed_size(fpath):
-    with open(fpath, 'rb') as f:
+    with open(fpath, "rb") as f:
         f.seek(-4, 2)
-        return struct.unpack('I', f.read(4))[0]
+        return struct.unpack("I", f.read(4))[0]

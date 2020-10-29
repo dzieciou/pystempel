@@ -9,13 +9,13 @@ def load_dict(fpath):
         comments = 0
         while comments < 3:
             line = f.readline()
-            if line.startswith('#'):
+            if line.startswith("#"):
                 comments += 1
 
-    with open(fpath, 'r', encoding='utf-8') as lines:
+    with open(fpath, "r", encoding="utf-8") as lines:
         skip_comments(lines)
         dict = defaultdict(set)
-        for line in tqdm(lines, desc='Loading dict'):
-            orth, lemma, *rest = line.split('\t', 2)
+        for line in tqdm(lines, desc="Loading dict"):
+            orth, lemma, *rest = line.split("\t", 2)
             dict[lemma].add(orth)
     return dict

@@ -56,10 +56,10 @@ from sortedcontainers import SortedDict
 
 from stempel.streams import DataInputStream, DataOutputStream
 
-DASH_COMMAND = '-'
-DELETE_COMMAND = 'D'
-INSERT_COMMAND = 'I'
-REPLACE_COMMAND = 'R'
+DASH_COMMAND = "-"
+DELETE_COMMAND = "D"
+INSERT_COMMAND = "I"
+REPLACE_COMMAND = "R"
 
 
 def reverse(s):
@@ -96,10 +96,9 @@ class Cell:
         return self.cmd >= 0 or self.ref >= 0
 
     def __str__(self):
-        return 'ref(%s)cmd(%s)cnt(%s)skp({%s})'.format(self.ref,
-                                                       self.cmd,
-                                                       self.cnt,
-                                                       self.skip)
+        return "ref(%s)cmd(%s)cnt(%s)skp({%s})".format(
+            self.ref, self.cmd, self.cnt, self.skip
+        )
 
     def __repr__(self):
         return self.__str__()
@@ -109,6 +108,7 @@ class Row:
     """
     The Row class represents a row in a matrix representation of a trie.
     """
+
     uniform_cnt = 0
     uniform_skip = 0
 
@@ -118,10 +118,12 @@ class Row:
         cells_count = stream.read_int()
         for _ in range(cells_count):
             ch = stream.read_char()
-            cell = Cell(cmd=stream.read_int(),
-                        cnt=stream.read_int(),
-                        ref=stream.read_int(),
-                        skip=stream.read_int())
+            cell = Cell(
+                cmd=stream.read_int(),
+                cnt=stream.read_int(),
+                ref=stream.read_int(),
+                skip=stream.read_int(),
+            )
             cells[ch] = cell
         return Row(cells)
 
@@ -263,9 +265,7 @@ class Row:
 
 
 def __str__(self):
-    return str(['[%s:%s]'.format(ch, cell)
-                for ch, cell
-                in self.cells.items()])
+    return str(["[%s:%s]".format(ch, cell) for ch, cell in self.cells.items()])
 
 
 class Reduce:
@@ -283,14 +283,10 @@ class Reduce:
         """
         rows = []
         remap = [-1] * len(orig.rows)
-        rows = self._remove_gaps(ind=orig.root,
-                                 old_rows=rows,
-                                 to_rows=[],
-                                 remap=remap)
-        return Trie(forward=orig.forward,
-                    root=remap[orig.root],
-                    cmds=orig.cmds,
-                    rows=rows)
+        rows = self._remove_gaps(ind=orig.root, old_rows=rows, to_rows=[], remap=remap)
+        return Trie(
+            forward=orig.forward, root=remap[orig.root], cmds=orig.cmds, rows=rows
+        )
 
     def _remove_gaps(self, ind, old_rows, to_rows, remap):
         remap[ind] = len(to_rows)
@@ -304,7 +300,6 @@ class Reduce:
 
 
 class Trie:
-
     @classmethod
     def from_stream(cls, stream: DataInputStream):
         forward = stream.read_boolean()
@@ -456,15 +451,18 @@ class Trie:
         return by.optimize(self)
 
     def print_info(self, prefix):
-        print('prefix %s nds %d cmds %d '
-              'cells %s valcells %s'
-              'pntcells %s'.format(prefix,
-                                   len(self.rows),
-                                   len(self.cmds),
-                                   self.get_cells(),
-                                   self.get_cells_val(),
-                                   self.get_cells_pnt()
-                                   ))
+        print(
+            "prefix %s nds %d cmds %d "
+            "cells %s valcells %s"
+            "pntcells %s".format(
+                prefix,
+                len(self.rows),
+                len(self.cmds),
+                self.get_cells(),
+                self.get_cells_val(),
+                self.get_cells_pnt(),
+            )
+        )
 
 
 class Remap(Row):
@@ -482,7 +480,6 @@ class Remap(Row):
 
 
 class Optimizer(Reduce):
-
     def optimize(self, orig):
         cmds = orig.cmds
         rows = []
@@ -632,10 +629,10 @@ class Gener(Reduce):
             j -= 1
 
         remap = [-1] * len(orig_rows)
-        rows = self._remove_gaps(ind=orig.root, old_rows=orig_rows,
-                                 to_rows=[], remap=remap)
-        return Trie(forward=orig.forward, root=remap[orig.root], cmds=cmds,
-                    rows=rows)
+        rows = self._remove_gaps(
+            ind=orig.root, old_rows=orig_rows, to_rows=[], remap=remap
+        )
+        return Trie(forward=orig.forward, root=remap[orig.root], cmds=cmds, rows=rows)
 
     @staticmethod
     def __eat(in_row, remap):
@@ -688,8 +685,9 @@ class Lift(Reduce):
             self.__lift_up(orig_rows[j], orig_rows)
 
         remap = [-1] * len(orig.rows)
-        rows = self._remove_gaps(ind=orig.root, old_rows=orig_rows,
-                                 to_rows=[], remap=remap)
+        rows = self._remove_gaps(
+            ind=orig.root, old_rows=orig_rows, to_rows=[], remap=remap
+        )
         # TODO When to provide parameter names in invokation?
         return Trie(orig.forward, remap[orig.root], cmds, rows)
 
@@ -733,9 +731,8 @@ class MultiTrie(Trie):
     itself).
     """
 
-    EOM = '*'
+    EOM = "*"
     EOM_NODE = EOM
-
 
     BY = 1
 
@@ -765,7 +762,7 @@ class MultiTrie(Trie):
         :param key: the key to the cell holding the desired element
         :return: the element
         """
-        result = ''
+        result = ""
         for trie in self.tries:
             r = trie.get_fully(key)
             if r is None or (len(r) == 1 and r[0] == self.EOM):
@@ -780,7 +777,7 @@ class MultiTrie(Trie):
         :param key: the key associated with the desired element
         :return: the element that is stored as last on a path
         """
-        result = ''
+        result = ""
         for trie in self.tries:
             r = trie.get_last_on_path(key)
             if r is None or (len(r) == 1 and r[0] == self.EOM):
@@ -840,7 +837,7 @@ class MultiTrie(Trie):
         c = 0
         for trie in self.tries:
             c += 1
-            trie.print_info('%s [%d] '.format(prefix, c))
+            trie.print_info("%s [%d] ".format(prefix, c))
 
 
 class MultiTrie2(MultiTrie):
@@ -867,10 +864,10 @@ class MultiTrie2(MultiTrie):
         super().__init__(forward)
 
     def get_fully(self, key):
-        result = ''
+        result = ""
         last_key = key
-        p = [' '] * len(self.tries)
-        last_ch = ' '
+        p = [" "] * len(self.tries)
+        last_ch = " "
         for i in range(len(self.tries)):
             r = self.tries[i].get_fully(last_key)
             if r is None or (len(r) == 1 and r[0] == self.EOM):
@@ -898,10 +895,10 @@ class MultiTrie2(MultiTrie):
         :return: the element that is stored as last on a path
         """
         # TODO add catching IndexError
-        result = ''
+        result = ""
         last_key = key
         p = [None] * len(self.tries)
-        last_ch = ' '
+        last_ch = " "
         for i in range(len(self.tries)):
             r = self.tries[i].get_last_on_path(last_key)
             if r is None or (len(r) == 1 and r[0] == self.EOM):
@@ -972,16 +969,16 @@ class MultiTrie2(MultiTrie):
             parts += 1
             i = next_ + 2 if i == next_ else next_
 
-        part = list(' ' * parts)
+        part = list(" " * parts)
         x = 0
         i = 0
         while 0 <= i < len(cmd):
             next_ = self.__dash_even(cmd, i)
             if i == next_:
-                part[x] = cmd[i:i + 2]
+                part[x] = cmd[i : i + 2]
                 i = next_ + 2
             else:
-                part[x] = cmd[i:len(cmd)] if next_ < 0 else cmd[i:next_]
+                part[x] = cmd[i : len(cmd)] if next_ < 0 else cmd[i:next_]
                 i = next_
             x += 1
         return part
@@ -1005,9 +1002,9 @@ class MultiTrie2(MultiTrie):
 
     def __skip(self, s, count):
         if self.forward:
-            return s[count:len(s)]
+            return s[count : len(s)]
         else:
-            return None if len(s) < count else s[0:len(s) - count]
+            return None if len(s) < count else s[0 : len(s) - count]
 
     @staticmethod
     def __dash_even(s, from_):
@@ -1024,7 +1021,7 @@ class MultiTrie2(MultiTrie):
         i = 0
         while i < len(cmd):
             if cmd[i] in [DASH_COMMAND, DELETE_COMMAND]:
-                length += ord(cmd[i + 1]) - ord('a') + 1
+                length += ord(cmd[i + 1]) - ord("a") + 1
             elif cmd[i] == REPLACE_COMMAND:
                 length += 1
             elif cmd[i] == INSERT_COMMAND:
@@ -1049,7 +1046,7 @@ def apply_patch(destination, patch):
         for i in range(int(len(patch) / 2)):
             cmd = patch[2 * i]
             letter = patch[2 * i + 1]
-            offset = ord(letter) - ord('a')
+            offset = ord(letter) - ord("a")
             yield cmd, letter, offset
 
     if patch is None:
@@ -1070,7 +1067,7 @@ def apply_patch(destination, patch):
             position -= offset
             if position < 0 or position >= len(destination):
                 return
-            destination[position:original_position + 1] = ''
+            destination[position : original_position + 1] = ""
         elif cmd == INSERT_COMMAND:
             position += 1
             if position < 0 or position > len(destination):
