@@ -3,7 +3,7 @@ import os
 from setuptools import find_packages, setup
 
 REQUIRED_PYTHON = [3, 5]
-version = "1.1.0"
+version = "1.2.0"
 
 
 def read(fname):

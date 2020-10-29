@@ -17,12 +17,17 @@ limitations under the License.
 
 import struct
 from tqdm import tqdm
+import os
+
+DISABLE_TQDM = os.environ.get("DISABLE_TQDM", False)
 
 
 class ProgressStream:
     def __init__(self, stream, total_bytes):
         self.stream = stream
-        self.pbar = tqdm(total=total_bytes, desc="Loading", unit="bytes")
+        self.pbar = tqdm(
+            total=total_bytes, desc="Loading", unit="bytes", disable=DISABLE_TQDM
+        )
 
     def read(self, size):
         self.pbar.update(size)

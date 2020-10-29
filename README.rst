@@ -105,6 +105,11 @@ compare both approaches to help you decide:
 .. _debugging harder: https://stackoverflow.com/questions/6970359/find-an-efficient-way-to-integrate-different-language-libraries-into-one-project
 .. _tests: tests/
 
+Options
+-------
+
+To disable a progress bar when loading stemming tables, set environment variable `DISABLE_TQDM=True`.
+
 Development setup
 -----------------
 
