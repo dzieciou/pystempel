@@ -55,15 +55,22 @@
 
 import pytest
 
-from stempel.egothor import Trie, MultiTrie, MultiTrie2, Optimizer, Optimizer2,\
-    Gener, Lift
+from stempel.egothor import (
+    Trie,
+    MultiTrie,
+    MultiTrie2,
+    Optimizer,
+    Optimizer2,
+    Gener,
+    Lift,
+)
 
 
 def test_trie_forward():
     trie = Trie(forward=True)
 
-    keys = ['a', 'ba', 'bb', 'c']
-    vals = ['1', '2', '2', '4']
+    keys = ["a", "ba", "bb", "c"]
+    vals = ["1", "2", "2", "4"]
     for key, val in zip(keys, vals):
         trie.add(key, val)
 
@@ -76,8 +83,8 @@ def test_trie_forward():
 def test_trie_backward():
     trie = Trie(forward=False)
 
-    keys = ['a', 'ba', 'bb', 'c']
-    vals = ['1', '2', '2', '4']
+    keys = ["a", "ba", "bb", "c"]
+    vals = ["1", "2", "2", "4"]
     for key, val in zip(keys, vals):
         trie.add(key, val)
 
@@ -88,8 +95,8 @@ def test_trie_backward():
 def test_multitrie(forward):
     trie = MultiTrie(forward=forward)
 
-    keys = ['a', 'ba', 'bb', 'c']
-    vals = ['1', '2', '2', '4']
+    keys = ["a", "ba", "bb", "c"]
+    vals = ["1", "2", "2", "4"]
     for key, val in zip(keys, vals):
         trie.add(key, val)
 
@@ -100,10 +107,10 @@ def test_multitrie(forward):
 def test_multitrie2(forward):
     trie = MultiTrie2(forward=forward)
 
-    keys = ['a', 'ba', 'bb', 'c']
+    keys = ["a", "ba", "bb", "c"]
     # FIXME short vals won't work, see line 155 for example
     #       the IOOBE is caught (wierd), but shouldnt affect patch cmds?
-    vals = ['1111', '2222', '2223', '4444']
+    vals = ["1111", "2222", "2223", "4444"]
     for key, val in zip(keys, vals):
         trie.add(key, val)
 
@@ -117,7 +124,7 @@ def assert_trie_content(trie, keys, vals):
         trie.reduce(Optimizer2()),
         trie.reduce(Gener()),
         trie.reduce(Lift(change_skip=True)),
-        trie.reduce(Lift(change_skip=False))
+        trie.reduce(Lift(change_skip=False)),
     ]
     for trie in tries:
         for key, val in zip(keys, vals):

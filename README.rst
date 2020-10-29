@@ -121,6 +121,7 @@ To setup environment for development you will need `Anaconda`_ installed.
 
     conda env create --file environment.yml
     conda activate pystempel-env
+    pre-commit install
 
 To run tests:
 

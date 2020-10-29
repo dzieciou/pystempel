@@ -22,9 +22,9 @@ import pytest
 import tests.base as base
 
 pwd = os.path.dirname(os.path.abspath(__file__))
-stemmer_table_fpath = os.path.join(pwd, '..', 'data', 'original', 'stemmer_20000.tbl')
-jar_fpath = os.path.join(os.getcwd(), 'stempel-8.1.1.jar')
-dict_fpath = os.path.join(pwd, 'sjp_dict.txt')
+stemmer_table_fpath = os.path.join(pwd, "..", "data", "original", "stemmer_20000.tbl")
+jar_fpath = os.path.join(os.getcwd(), "stempel-8.1.1.jar")
+dict_fpath = os.path.join(pwd, "sjp_dict.txt")
 
 python_stemmer = base.get_python_stemmer(stemmer_table_fpath)
 java_stemmer = base.get_java_stemmer(stemmer_table_fpath, jar_fpath)
@@ -34,5 +34,6 @@ java_stemmer = base.get_java_stemmer(stemmer_table_fpath, jar_fpath)
 def test_stemming(word):
     python_stem = python_stemmer.stem(word)
     java_stem = java_stemmer.stem(word)
-    assert (python_stem is None and java_stem is None) \
-            or python_stem == java_stem.toString()
+    assert (
+        python_stem is None and java_stem is None
+    ) or python_stem == java_stem.toString()

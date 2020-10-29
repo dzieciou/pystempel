@@ -17,3 +17,4 @@ dependencies:
   - pandas
   - matplotlib
   - twine
+  - pre-commit

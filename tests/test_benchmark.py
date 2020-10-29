@@ -20,9 +20,9 @@ import os
 import time
 
 pwd = os.path.dirname(os.path.abspath(__file__))
-stemmer_table_fpath = os.path.join(pwd, '..', 'data', 'original', 'stemmer_20000.tbl')
-jar_fpath = os.path.join(os.getcwd(), 'stempel-8.1.1.jar')
-dict_fpath = os.path.join(pwd, 'sjp_dict.txt')
+stemmer_table_fpath = os.path.join(pwd, "..", "data", "original", "stemmer_20000.tbl")
+jar_fpath = os.path.join(os.getcwd(), "stempel-8.1.1.jar")
+dict_fpath = os.path.join(pwd, "sjp_dict.txt")
 
 python_stemmer = base.get_python_stemmer(stemmer_table_fpath)
 java_stemmer = base.get_java_stemmer(stemmer_table_fpath, jar_fpath)
@@ -42,8 +42,12 @@ words = list(base.load_words(dict_fpath))
 port_time = measure_stemming_time(python_stemmer, words)
 wrapper_time = measure_stemming_time(java_stemmer, words)
 
-print('Words: %d'.format(len(words)))
-print('Python port stemming time: %f '
-      '(%f/word) '.format(port_time, port_time / len(words)))
-print('    Wrapper stemming time: %f '
-      '(%f/word) '.format(wrapper_time, wrapper_time / len(words)))
+print("Words: %d".format(len(words)))
+print(
+    "Python port stemming time: %f "
+    "(%f/word) ".format(port_time, port_time / len(words))
+)
+print(
+    "    Wrapper stemming time: %f "
+    "(%f/word) ".format(wrapper_time, wrapper_time / len(words))
+)
