@@ -54,7 +54,7 @@
 """
 from sortedcontainers import SortedDict
 
-from stempel.streams import DataInputStream, DataOutputStream
+from pystempel.streams import DataInputStream, DataOutputStream
 
 DASH_COMMAND = "-"
 DELETE_COMMAND = "D"

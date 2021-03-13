@@ -15,11 +15,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from stempel import StempelStemmer
+from pystempel import Stemmer
 from tests.base import get_library_data_path
 
 
 def test_polimorf():
     path = get_library_data_path("polimorf", "stemmer_polimorf.tbl.gz")
-    stemmer = StempelStemmer.from_file(path)
-    assert stemmer.stem("jabłkami") == "jabłko"
+    stemmer = Stemmer.from_file(path)
+    assert stemmer("jabłkami") == "jabłko"

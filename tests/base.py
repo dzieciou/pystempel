@@ -16,16 +16,18 @@ limitations under the License.
 """
 
 import os
+from typing import Callable, Optional
 
+AnyStemmer = Callable[[str],Optional[str]]
 
-def get_python_stemmer(stemmer_table_fpath):
-    from stempel import StempelStemmer
+def get_python_stemmer(stemmer_table_fpath) -> AnyStemmer:
+    from pystempel import Stemmer
 
-    return StempelStemmer.from_file(stemmer_table_fpath)
+    return Stemmer.from_file(stemmer_table_fpath)
 
 
 # noinspection PyPep8Naming,PyPep8Naming,PyPep8Naming
-def get_java_stemmer(stemmer_table_fpath, jar_fpath):
+def get_java_stemmer(stemmer_table_fpath, jar_fpath) -> AnyStemmer:
     os.environ["CLASSPATH"] = jar_fpath
 
     from jnius import autoclass
@@ -33,7 +35,7 @@ def get_java_stemmer(stemmer_table_fpath, jar_fpath):
     FileInputStream = autoclass("java.io.FileInputStream")
     StempelStemmer = autoclass("org.apache.lucene.analysis.stempel.StempelStemmer")
     stemmerTrie = StempelStemmer.load(FileInputStream(stemmer_table_fpath))
-    return StempelStemmer(stemmerTrie)
+    return StempelStemmer(stemmerTrie).stem
 
 
 def load_words(dict_fpath):

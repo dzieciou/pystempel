@@ -55,7 +55,7 @@
 
 import pytest
 
-from stempel.egothor import (
+from pystempel.egothor import (
     Trie,
     MultiTrie,
     MultiTrie2,

@@ -69,8 +69,8 @@ def extract_compile(dict_fpath, stemmer_tbl_fpath):
 
 if __name__ == "__main__":
     extract_compile("dicts/polimorf-20190818.tab.gz", "stempel/stemmer_polimorf.tbl")
-    with open("stempel/stemmer_polimorf.tbl", "rb") as f_in:
+    with open("pystempel/stemmer_polimorf.tbl", "rb") as f_in:
         with gzip.open(
-            "stempel/stemmer_polimorf.tbl.gz", mode="wb", compresslevel=9
+                "pystempel/stemmer_polimorf.tbl.gz", mode="wb", compresslevel=9
         ) as f_out:
             shutil.copyfileobj(f_in, f_out)
