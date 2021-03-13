@@ -37,9 +37,9 @@ Use in your code:
 
 .. code:: python
 
-  >>> from stempel import StempelStemmer
+  >>> from pystempel import Stemmer
 
-Choose original (called default) version of a stemmer:
+    Choose original (called default) version of a stemmer:
 
 .. code:: python
 
@@ -56,7 +56,7 @@ Stem:
 .. code:: python
 
   >>> for word in ['książka', 'książki', 'książkami', 'książkowa', 'książkowymi']:
-  ...   print(stemmer.stem(word))
+  ...   print(stemmer(word))
   ...
   książek
   książek

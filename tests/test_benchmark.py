@@ -31,7 +31,7 @@ java_stemmer = base.get_java_stemmer(stemmer_table_fpath, jar_fpath)
 def measure_stemming_time(stemmer, words):
     start = time.time()
     for word in words:
-        stemmer.stem(word)
+        stemmer(word)
     end = time.time()
     return end - start
 

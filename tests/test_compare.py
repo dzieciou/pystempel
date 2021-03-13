@@ -30,8 +30,8 @@ java_stemmer = base.get_java_stemmer(stemmer_table_fpath, jar_fpath)
 
 @pytest.mark.parametrize("word", base.load_words(dict_fpath))
 def test_stemming(word):
-    python_stem = python_stemmer.stem(word)
-    java_stem = java_stemmer.stem(word)
+    python_stem = python_stemmer(word)
+    java_stem = java_stemmer(word)
     assert (
                    python_stem is None and java_stem is None
            ) or python_stem == java_stem.toString()

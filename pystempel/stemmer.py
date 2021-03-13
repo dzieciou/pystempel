@@ -17,13 +17,14 @@ limitations under the License.
 
 import gzip
 import os
+import struct
 
-from stempel import egothor
-from stempel.egothor import Trie, MultiTrie2
-from stempel.streams import DataInputStream
+from pystempel import egothor
+from pystempel.egothor import Trie, MultiTrie2
+from pystempel.streams import DataInputStream
 
 
-class StempelStemmer:
+class Stemmer:
     @classmethod
     def default(cls):
         """
@@ -77,7 +78,7 @@ class StempelStemmer:
         :return:
         """
         stemmer_table = cls.__trie_from_stream(stream)
-        return StempelStemmer(stemmer_table)
+        return Stemmer(stemmer_table)
 
     @classmethod
     def __trie_from_stream(cls, inp: DataInputStream):
@@ -94,7 +95,7 @@ class StempelStemmer:
         """
         self.stemmer_trie = stemmer_trie
 
-    def stem(self, word):
+    def __call__(self, word):
         """
         Stem a word.
         :param word: inp word to be stemmed
@@ -108,9 +109,6 @@ class StempelStemmer:
         buffer = list(word)
         egothor.apply_patch(buffer, patch)
         return "".join(buffer) if len(buffer) > 0 else None
-
-
-import struct
 
 
 def get_uncompressed_size(fpath):
