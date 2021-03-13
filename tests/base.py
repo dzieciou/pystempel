@@ -40,3 +40,23 @@ def load_words(dict_fpath):
     with open(dict_fpath, "rb") as f:
         for line in f:
             yield line.decode("utf-8").strip()
+
+def find_vcs_root(test, dirs=(".git",), default=None):
+    import os
+    prev, test = None, os.path.abspath(test)
+    while prev != test:
+        if any(os.path.isdir(os.path.join(test, d)) for d in dirs):
+            return test
+        prev, test = test, os.path.abspath(os.path.join(test, os.pardir))
+    return default
+
+ROOT_DIR = find_vcs_root(os.path.dirname(__file__))
+
+def get_test_data_path(fname):
+    return os.path.join(ROOT_DIR, "tests", "data", fname)
+
+def get_library_data_path(*parts):
+    return os.path.join(ROOT_DIR, "data", *parts)
+
+def get_stempel_jar_path():
+    return os.path.join(ROOT_DIR, "stempel-8.1.1.jar")

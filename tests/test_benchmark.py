@@ -15,14 +15,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import tests.base as base
-import os
 import time
 
-pwd = os.path.dirname(os.path.abspath(__file__))
-stemmer_table_fpath = os.path.join(pwd, "..", "data", "original", "stemmer_20000.tbl")
-jar_fpath = os.path.join(os.getcwd(), "stempel-8.1.1.jar")
-dict_fpath = os.path.join(pwd, "sjp_dict.txt")
+from tests import base
+from tests.base import get_test_data_path, get_library_data_path, get_stempel_jar_path
+
+stemmer_table_fpath = get_library_data_path("original", "stemmer_20000.tbl")
+jar_fpath = get_stempel_jar_path()
+dict_fpath = get_test_data_path("sjp_dict.txt")
 
 python_stemmer = base.get_python_stemmer(stemmer_table_fpath)
 java_stemmer = base.get_java_stemmer(stemmer_table_fpath, jar_fpath)

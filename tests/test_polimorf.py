@@ -16,8 +16,10 @@ limitations under the License.
 """
 
 from stempel import StempelStemmer
+from tests.base import get_library_data_path
 
 
 def test_polimorf():
-    stemmer = StempelStemmer.from_file("../data/polimorf/stemmer_polimorf.tbl.gz")
+    path = get_library_data_path("polimorf", "stemmer_polimorf.tbl.gz")
+    stemmer = StempelStemmer.from_file(path)
     assert stemmer.stem("jabłkami") == "jabłko"
