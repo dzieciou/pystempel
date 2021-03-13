@@ -6,7 +6,6 @@ channels:
 dependencies:
   - python=3.7
   - pip
-  - pywin32
   - Cython
   - sortedcontainers
   - pytest
