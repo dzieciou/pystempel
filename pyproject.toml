@@ -5,7 +5,7 @@ description = ""
 authors = ["dzieciou <mgawinecki@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = ">=3.8,<4.0"
 tqdm = "^4.65.0"
 sortedcontainers = "^2.4.0"
 
