@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install Conda environment from environment.yml
-        uses: mamba-org/provision-with-micromamba@main
+        uses: mamba-org/provision-with-micromamba@v15
       - run: |
           conda info
           conda list
