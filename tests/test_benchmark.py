@@ -45,9 +45,9 @@ wrapper_time = measure_stemming_time_ms(java_stemmer, words)
 print("Words: {}".format(len(words)))
 print(
     "Python port stemming time: {:.3f} s"
-    " ({:.3f} ms/word) ".format(port_time * 1000, port_time / len(words))
+    " ({:.3f} ms/word) ".format(port_time / 1000, port_time / len(words))
 )
 print(
     "    Wrapper stemming time: {:.3f} s"
-    " ({:.3f} ms/word) ".format(wrapper_time * 1000, wrapper_time / len(words))
+    " ({:.3f} ms/word) ".format(wrapper_time / 1000, wrapper_time / len(words))
 )
