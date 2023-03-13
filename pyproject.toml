@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "pystempel"
+version = "0.1.0"
+description = ""
+authors = ["dzieciou <mgawinecki@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+tqdm = "^4.65.0"
+sortedcontainers = "^2.4.0"
+
+[tool.poetry.group.dev.dependencies]
+pyjnius = "^1.4.2"
+smart-open = "^6.3.0"
+tqdm = "^4.65.0"
+jupyterlab = "^3.6.1"
+pandas = "^1.5.3"
+matplotlib = "^3.7.1"
+twine = "^4.0.2"
+pre-commit = "^3.1.1"
+pytest = "^7.2.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
