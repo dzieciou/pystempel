@@ -16,6 +16,7 @@ jobs:
       - uses: conda-incubator/setup-miniconda@v2
         with:
           environment-file: environment.yml
+          use-mamba: true
       - run: |
           conda info
           conda list
