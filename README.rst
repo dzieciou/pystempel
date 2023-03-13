@@ -43,13 +43,13 @@ Use in your code:
 
 .. code:: python
 
-  >>> stemmer = StempelStemmer.default()
+  >>> stemmer = Stemmer.default()
 
 or a version with new stemming table pretrained on training sets from Polimorf dictionary:
 
 .. code:: python
 
- >>> stemmer = StempelStemmer.polimorf()
+ >>> stemmer = Stemmer.polimorf()
 
 Stem:
 
