@@ -128,7 +128,7 @@ To run tests:
 .. code:: console
 
     curl https://repo1.maven.org/maven2/org/apache/lucene/lucene-analyzers-stempel/8.1.1/lucene-analyzers-stempel-8.1.1.jar > stempel-8.1.1.jar
-    python -m pytest ./tests/
+    pytest ./tests/
 
 To run benchmark:
 
