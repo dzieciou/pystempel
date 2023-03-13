@@ -1,0 +1,15 @@
+jobs:
+  test:
+    name: test
+    runs-on: "ubuntu-latest"
+    defaults:
+      run:
+        shell: bash -el {0}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          environment-file: environment.yml
+      - run: |
+          conda info
+          conda list
