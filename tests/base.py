@@ -16,11 +16,13 @@ limitations under the License.
 """
 
 import os
+from pathlib import Path
 from typing import Callable, Optional
 
-AnyStemmer = Callable[[str],Optional[str]]
+AnyStemmer = Callable[[str], Optional[str]]
 
-def get_python_stemmer(stemmer_table_fpath) -> AnyStemmer:
+
+def get_python_stemmer(stemmer_table_fpath: Path) -> AnyStemmer:
     from pystempel import Stemmer
 
     return Stemmer.from_file(stemmer_table_fpath)
@@ -34,7 +36,7 @@ def get_java_stemmer(stemmer_table_fpath, jar_fpath) -> AnyStemmer:
 
     FileInputStream = autoclass("java.io.FileInputStream")
     StempelStemmer = autoclass("org.apache.lucene.analysis.stempel.StempelStemmer")
-    stemmerTrie = StempelStemmer.load(FileInputStream(stemmer_table_fpath))
+    stemmerTrie = StempelStemmer.load(FileInputStream(str(stemmer_table_fpath)))
     return StempelStemmer(stemmerTrie).stem
 
 
@@ -43,22 +45,28 @@ def load_words(dict_fpath):
         for line in f:
             yield line.decode("utf-8").strip()
 
+
 def find_vcs_root(test, dirs=(".git",), default=None):
     import os
+
     prev, test = None, os.path.abspath(test)
     while prev != test:
         if any(os.path.isdir(os.path.join(test, d)) for d in dirs):
-            return test
+            return Path(test)
         prev, test = test, os.path.abspath(os.path.join(test, os.pardir))
-    return default
+    return Path(default)
+
 
 ROOT_DIR = find_vcs_root(os.path.dirname(__file__))
+
 
 def get_test_data_path(fname):
     return os.path.join(ROOT_DIR, "tests", "data", fname)
 
+
 def get_library_data_path(*parts):
-    return os.path.join(ROOT_DIR, "data", *parts)
+    return (ROOT_DIR / "src" / "pystempel" / "data").joinpath(*parts)
+
 
 def get_stempel_jar_path():
     return os.path.join(ROOT_DIR, "stempel-8.1.1.jar")
