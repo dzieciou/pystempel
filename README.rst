@@ -19,10 +19,12 @@ This package includes also high-quality stemming tables for Polish: original one
 Andrzej Białecki on 20,000 training sets, and new one, pretrained on 259,080 training sets
 from `Polimorf dictionary`_ by me.
 
+
+.. _Polimorf dictionary: https://clarin-pl.eu/dspace/handle/11321/577
+
 The port does not include code for compiling stemming tables.
 
 .. _sjp.pl: https://sjp.pl/slownik/en/
-.. _Polimorf dictionary: https://clarin-pl.eu/dspace/handle/11321/577
 
 How to use
 ----------
