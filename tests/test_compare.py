@@ -33,5 +33,5 @@ def test_stemming(word):
     python_stem = python_stemmer(word)
     java_stem = java_stemmer(word)
     assert (
-                   python_stem is None and java_stem is None
-           ) or python_stem == java_stem.toString()
+        python_stem is None and java_stem is None
+    ) or python_stem == java_stem.toString()

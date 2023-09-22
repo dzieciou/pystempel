@@ -39,19 +39,19 @@ Use in your code:
 
 .. code:: python
 
-  >>> from pystempel import Stemmer
+   from pystempel import Stemmer
 
-    Choose original (called default) version of a stemmer:
+Choose original (called default) version of a stemmer:
 
 .. code:: python
 
-  >>> stemmer = StempelStemmer.default()
+   stemmer = Stemmer.default()
 
 or a version with new stemming table pretrained on training sets from Polimorf dictionary:
 
 .. code:: python
 
- >>> stemmer = StempelStemmer.polimorf()
+   stemmer = Stemmer.polimorf()
 
 Stem:
 
@@ -115,29 +115,33 @@ To disable a progress bar when loading stemming tables, set environment variable
 Development setup
 -----------------
 
-To setup environment for development you will need `Anaconda`_ installed.
+To setup environment for development you will need `poetry`_ 1.4.0 or higher installed.
 
-.. _Anaconda: https://anaconda.org/
+.. _poetry: https://python-poetry.org/
 
 .. code:: console
 
-    conda env create --file environment.yml
-    conda activate pystempel-env
+    poetry install
+    poetry shell
     pre-commit install
 
-To run tests:
+To run tests download original stemmer in Java:
 
 .. code:: console
 
     curl https://repo1.maven.org/maven2/org/apache/lucene/lucene-analyzers-stempel/8.1.1/lucene-analyzers-stempel-8.1.1.jar > stempel-8.1.1.jar
-    pytest ./tests/
 
-To run benchmark:
+and run:
 
 .. code:: console
 
-    set PYTHONPATH=%PYTHONPATH%;%cd%
-    python tests\test_benchmark.py
+    poetry run pytest
+
+To run performance benchmark:
+
+.. code:: console
+
+    PYTHONPATH=$PWD poetry run python tests/test_benchmark.py
 
 Licensing
 ---------
