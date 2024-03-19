@@ -39,19 +39,19 @@ Use in your code:
 
 .. code:: python
 
-  >>> from stempel import StempelStemmer 
+  >>> from pystempel import Stemmer
 
     Choose the original (called default) version of a stemmer:
 
 .. code:: python
 
-  >>> stemmer = StempelStemmer.default()
+  >>> stemmer = Stemmer.default()
 
 or a version with a new stemming table pretrained on training sets from Polimorf dictionary:
 
 .. code:: python
 
- >>> stemmer = StempelStemmer.polimorf()
+ >>> stemmer = Stemmer.polimorf()
 
 Stem:
 
