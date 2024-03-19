@@ -39,7 +39,7 @@ Use in your code:
 
 .. code:: python
 
-  >>> from pystempel import Stemmer
+  >>> from stempel import StempelStemmer 
 
     Choose original (called default) version of a stemmer:
 
