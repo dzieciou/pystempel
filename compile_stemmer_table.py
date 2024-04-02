@@ -21,7 +21,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-import morfeusz2
+from utils import morfeusz2
 
 
 def save_dict(dict, fpath):

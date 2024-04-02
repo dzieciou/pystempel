@@ -78,7 +78,7 @@ longer (7.5 seconds vs. 1.3 seconds), though this happens only once when a stemm
 the stemmer stems slightly faster for the original stemming table: ~60000 vs ~51000 words per second.
 See `Evaluation Jupyter Notebook`_ for the detailed evaluation results.
 
-.. _Evaluation Jupyter Notebook: http://htmlpreview.github.io/?https://github.com/dzieciou/pystempel/blob/master/Evaluation.html
+.. _Evaluation Jupyter Notebook: http://htmlpreview.github.io/?https://github.com/dzieciou/pystempel/blob/master/eval/Evaluation.html
 
 Also, please note that the licensing schema of both stemming tables differs, and hence licensing of
 data generated with each one. See the "Licensing" section for the details.
