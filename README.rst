@@ -33,25 +33,25 @@ Install in your local environment:
 
 .. code:: console
 
-  pip install pystempel
+   pip install pystempel
 
 Use in your code:
 
 .. code:: python
 
-  >>> from pystempel import Stemmer
+   from pystempel import Stemmer
 
-    Choose the original (called default) version of a stemmer:
+Choose original (called default) version of a stemmer:
 
 .. code:: python
 
-  >>> stemmer = Stemmer.default()
+   stemmer = Stemmer.default()
 
 or a version with a new stemming table pretrained on training sets from Polimorf dictionary:
 
 .. code:: python
 
- >>> stemmer = Stemmer.polimorf()
+   stemmer = Stemmer.polimorf()
 
 Stem:
 
@@ -115,29 +115,33 @@ To disable a progress bar when loading stemming tables, set environment variable
 Development setup
 -----------------
 
-To set up an environment for development you will need `Anaconda`_ installed.
+To setup environment for development you will need `poetry`_ 1.4.0 or higher installed.
 
-.. _Anaconda: https://anaconda.org/
+.. _poetry: https://python-poetry.org/
 
 .. code:: console
 
-    conda env create --file environment.yml
-    conda activate pystempel-env
+    poetry install
+    poetry shell
     pre-commit install
 
-To run tests:
+To run tests download original stemmer in Java:
 
 .. code:: console
 
     curl https://repo1.maven.org/maven2/org/apache/lucene/lucene-analyzers-stempel/8.1.1/lucene-analyzers-stempel-8.1.1.jar > stempel-8.1.1.jar
-    pytest ./tests/
 
-To run benchmark:
+and run:
 
 .. code:: console
 
-    set PYTHONPATH=%PYTHONPATH%;%cd%
-    python tests\test_benchmark.py
+    poetry run pytest
+
+To run performance benchmark:
+
+.. code:: console
+
+    PYTHONPATH=$PWD poetry run python tests/test_benchmark.py
 
 Licensing
 ---------
@@ -176,4 +180,15 @@ Alternatives
 .. _Estem: https://github.com/arcusfelis/estem
 .. _pl_stemmer: https://github.com/Tutanchamon/pl_stemmer
 .. _polish-stem: https://github.com/eugeniashurko/polish-stem
+
+
+Release notes
+-------------
+
+2.0.0: API backward incompatible changes
+- Refactor `stempel` to `pystempel` package (#26)
+- Refactor `StempelStemmer` to `Stemmer` and `Stemmer.stem` to callable (#26)
+
+
+1.2.0: Stable version
 

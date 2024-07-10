@@ -19,7 +19,11 @@ from pystempel import Stemmer
 from tests.base import get_library_data_path
 
 
-def test_polimorf():
-    path = get_library_data_path("polimorf", "stemmer_polimorf.tbl.gz")
-    stemmer = Stemmer.from_file(path)
+def test_polimorf_from_resource():
+    stemmer = Stemmer.polimorf()
     assert stemmer("jabłkami") == "jabłko"
+
+
+def test_default_from_resource():
+    stemmer = Stemmer.default()
+    assert stemmer("jabłkami") == "jabłkami"

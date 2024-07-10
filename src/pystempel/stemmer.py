@@ -18,6 +18,9 @@ limitations under the License.
 import gzip
 import os
 import struct
+from importlib.resources import Package, Resource
+from pathlib import Path
+from typing import Union
 
 from pystempel import egothor
 from pystempel.egothor import Trie, MultiTrie2
@@ -31,7 +34,9 @@ class Stemmer:
         Construct a stemmer using default stemming trie.
         :return: stemmer instance.
         """
-        return cls.from_resource("stemmer_20000.tbl.gz")
+        from .data import original as file_resources
+
+        return cls.from_resource(file_resources, "stemmer_20000.tbl.gz")
 
     @classmethod
     def polimorf(cls):
@@ -39,10 +44,12 @@ class Stemmer:
         Construct a stemmer using default stemming trie.
         :return: stemmer instance.
         """
-        return cls.from_resource("stemmer_polimorf.tbl.gz")
+        from .data import polimorf as file_resources
+
+        return cls.from_resource(file_resources, "stemmer_polimorf.tbl.gz")
 
     @classmethod
-    def from_resource(cls, fname):
+    def from_resource(cls, file_resources: Package, fname: Resource):
         """
         Construct a stemmer using stemming table from a given file in the
         stempel package.
@@ -50,18 +57,28 @@ class Stemmer:
         :return: stemmer instance.
         """
         # TODO https://setuptools.readthedocs.io/en/latest/setuptools.html#setting-the-zip-safe-flag
-        package_dir = os.path.dirname(os.path.abspath(__file__))
-        fpath = os.path.join(package_dir, fname)
-        return cls.from_file(fpath)
+        try:
+            import importlib.resources as pkg_resources
+        except ImportError:
+            # Try backported to PY<37 `importlib_resources`.
+            import importlib_resources as pkg_resources
+
+        with pkg_resources.path(file_resources, fname) as p:
+            package_path = p
+
+        return cls.from_file(package_path)
 
     @classmethod
-    def from_file(cls, fpath):
+    def from_file(cls, fpath: Union[Path, str]):
         """
         Construct a stemmer using stemming table from a given file.
         :param fpath: path to the file containing stemming trie.
         :return: stemmer instance.
         """
-        if fpath.endswith(".gz"):
+        if isinstance(fpath, str):
+            fpath = Path(fpath)
+
+        if fpath.suffix == ".gz":
             file_size = get_uncompressed_size(fpath)
             with gzip.open(fpath, "rb") as f:
                 return cls.from_stream(DataInputStream(f, file_size))

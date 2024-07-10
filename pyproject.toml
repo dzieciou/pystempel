@@ -1,0 +1,59 @@
+[tool.poetry]
+name = "pystempel"
+version = "2.0.0"
+packages = [ {include = "pystempel", from= "src"}]
+exclude = ["**/*.tbl"]
+license = "See documentation"
+readme = "README.rst"
+description = "Polish stemmer."
+authors = ["Maciej Gawinecki <mgawinecki@gmail.com>"]
+classifiers = [
+        "Intended Audience :: Developers",
+        "Intended Audience :: Education",
+        "Intended Audience :: Information Technology",
+        "Intended Audience :: Science/Research",
+        "Operating System :: POSIX :: Linux",
+        "Operating System :: MacOS :: MacOS X",
+        "Operating System :: Microsoft :: Windows",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3 :: Only",
+        "Topic :: Scientific/Engineering",
+        "Topic :: Scientific/Engineering :: Artificial Intelligence",
+        "Topic :: Scientific/Engineering :: Human Machine Interfaces",
+        "Topic :: Scientific/Engineering :: Information Analysis",
+        "Topic :: Text Processing",
+        "Topic :: Text Processing :: General",
+        "Topic :: Text Processing :: Linguistic"
+]
+keywords = [
+    "NLP",
+    "natural language processing",
+    "computational linguistics",
+    "stemming",
+    "linguistics",
+    "language",
+    "natural language",
+    "text analytics",
+]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<4.0"
+tqdm = "^4.65.0"
+sortedcontainers = "^2.4.0"
+
+[tool.poetry.group.dev.dependencies]
+pyjnius = "^1.4.2"
+smart-open = "^6.3.0"
+tqdm = "^4.65.0"
+jupyterlab = "^3.6.1"
+pandas = "^1.5.3"
+matplotlib = "^3.7.1"
+twine = "^4.0.2"
+pre-commit = "^3.1.1"
+pytest = "^7.2.2"
+black = "^23.1.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

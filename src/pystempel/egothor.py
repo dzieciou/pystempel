@@ -487,7 +487,6 @@ class Optimizer(Reduce):
         remap = [0] * len(orig.rows)
 
         for j in range(len(orig_rows) - 1, -1, -1):
-
             now = Remap(orig_rows[j], remap)
             merged = False
 
@@ -693,7 +692,6 @@ class Lift(Reduce):
 
     def __lift_up(self, in_row, nodes):
         for _, cell in in_row.cells.items():
-
             if cell.ref < 0:
                 continue
 

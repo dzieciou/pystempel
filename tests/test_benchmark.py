@@ -28,26 +28,26 @@ python_stemmer = base.get_python_stemmer(stemmer_table_fpath)
 java_stemmer = base.get_java_stemmer(stemmer_table_fpath, jar_fpath)
 
 
-def measure_stemming_time(stemmer, words):
-    start = time.time()
+def measure_stemming_time_ms(stemmer, words):
+    start = time.time_ns()
     for word in words:
         stemmer(word)
-    end = time.time()
-    return end - start
+    end = time.time_ns()
+    return (end - start) / (10**6)
 
 
 # Loading words in memory to exclude I/O times from benchmark
 words = list(base.load_words(dict_fpath))
 
-port_time = measure_stemming_time(python_stemmer, words)
-wrapper_time = measure_stemming_time(java_stemmer, words)
+port_time = measure_stemming_time_ms(python_stemmer, words)
+wrapper_time = measure_stemming_time_ms(java_stemmer, words)
 
-print("Words: %d".format(len(words)))
+print("Words: {}".format(len(words)))
 print(
-    "Python port stemming time: %f "
-    "(%f/word) ".format(port_time, port_time / len(words))
+    "Python port stemming time: {:.3f} s"
+    " ({:.3f} ms/word) ".format(port_time / 1000, port_time / len(words))
 )
 print(
-    "    Wrapper stemming time: %f "
-    "(%f/word) ".format(wrapper_time, wrapper_time / len(words))
+    "    Wrapper stemming time: {:.3f} s"
+    " ({:.3f} ms/word) ".format(wrapper_time / 1000, wrapper_time / len(words))
 )
