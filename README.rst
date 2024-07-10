@@ -181,3 +181,14 @@ Alternatives
 .. _pl_stemmer: https://github.com/Tutanchamon/pl_stemmer
 .. _polish-stem: https://github.com/eugeniashurko/polish-stem
 
+
+Release notes
+-------------
+
+2.0.0: API backward incompatible changes
+- Refactor `stempel` to `pystempel` package (#26)
+- Refactor `StempelStemmer` to `Stemmer` and `Stemmer.stem` to callable (#26)
+
+
+1.2.0: Stable version
+
