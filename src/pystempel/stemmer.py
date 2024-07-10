@@ -20,6 +20,7 @@ import os
 import struct
 from importlib.resources import Package, Resource
 from pathlib import Path
+from typing import Union
 
 from pystempel import egothor
 from pystempel.egothor import Trie, MultiTrie2
@@ -68,12 +69,15 @@ class Stemmer:
         return cls.from_file(package_path)
 
     @classmethod
-    def from_file(cls, fpath: Path):
+    def from_file(cls, fpath: Union[Path, str]):
         """
         Construct a stemmer using stemming table from a given file.
         :param fpath: path to the file containing stemming trie.
         :return: stemmer instance.
         """
+        if isinstance(fpath, str):
+            fpath = Path(fpath)
+
         if fpath.suffix == ".gz":
             file_size = get_uncompressed_size(fpath)
             with gzip.open(fpath, "rb") as f:
