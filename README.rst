@@ -4,7 +4,7 @@ Stempel Stemmer
 .. image:: https://badge.fury.io/py/pystempel.svg
     :target: https://badge.fury.io/py/pystempel
 
-Python port of Stempel, an algorithmic stemmer for Polish language, originally written in Java.
+Python port of Stempel, an algorithmic stemmer for the Polish language, originally written in Java.
 
 The original stemmer has been implemented as part of `Egothor Project`_, taken virtually unchanged to
 `Stempel Stemmer Java library`_ by Andrzej Białecki and next included as part of `Apache Lucene`_,
@@ -15,14 +15,16 @@ a free and open-source search engine library. It is also used by `Elastic Search
 .. _Apache Lucene: https://lucene.apache.org/core/3_1_0/api/contrib-stempel/index.html
 .. _Elastic Search: https://www.elastic.co/guide/en/elasticsearch/plugins/current/analysis-stempel.html
 
-This package includes also high-quality stemming tables for Polish: original one pretrained by
-Andrzej Białecki on 20,000 training sets, and new one, pretrained on 259,080 training sets
-from Polimorf dictionary by me.
+This package includes also high-quality stemming tables for Polish: the original one pretrained by
+Andrzej Białecki on 20,000 training sets, and a new one, pretrained on 259,080 training sets
+from `Polimorf dictionary`_ by me.
+
+
+.. _Polimorf dictionary: https://clarin-pl.eu/dspace/handle/11321/577
 
 The port does not include code for compiling stemming tables.
 
 .. _sjp.pl: https://sjp.pl/slownik/en/
-
 
 How to use
 ----------
@@ -31,7 +33,7 @@ Install in your local environment:
 
 .. code:: console
 
-  pip install pystempel
+   pip install pystempel
 
 Use in your code:
 
@@ -45,7 +47,7 @@ Choose original (called default) version of a stemmer:
 
    stemmer = Stemmer.default()
 
-or a version with new stemming table pretrained on training sets from Polimorf dictionary:
+or a version with a new stemming table pretrained on training sets from Polimorf dictionary:
 
 .. code:: python
 
@@ -68,18 +70,18 @@ Stem:
 Choosing stemming table
 -----------------------
 
-Performance between original (default) and new stemming table (Polimorf-based) varies significantly.
-The stemmer for the default stemming table is *understemming*, i.e., for multiple forms of the
-same lemma provides different stems more often (63%) than when using Polimorf-based stemming table
-(13%). However, the file footprint of the latter is bigger (2.2MB vs 0.3MB). Also loading takes
-longer (7.5 seconds vs. 1.3 seconds), though this happens only once, when a stemmer is created. Also,
-for original stemming table, the stemmer stems slightly faster: ~60000 vs ~51000 words per second.
+Performance between the original (default) and the new stemming table (Polimorf-based) varies significantly.
+The stemmer for the default stemming table is *understemming*, i.e., multiple forms of the
+same lemma provide different stems more often (63%) than when using a Polimorf-based stemming table
+(13%). However, the file footprint of the latter is bigger (2.2MB vs 0.3MB). Also, loading takes
+longer (7.5 seconds vs. 1.3 seconds), though this happens only once when a stemmer is created. Also, 
+the stemmer stems slightly faster for the original stemming table: ~60000 vs ~51000 words per second.
 See `Evaluation Jupyter Notebook`_ for the detailed evaluation results.
 
 .. _Evaluation Jupyter Notebook: http://htmlpreview.github.io/?https://github.com/dzieciou/pystempel/blob/master/Evaluation.html
 
-Note also, that the licensing schema of both stemming tables differs, and hence licensing of
-data generated with each one. See "Licensing" section for the details.
+Also, please note that the licensing schema of both stemming tables differs, and hence licensing of
+data generated with each one. See the "Licensing" section for the details.
 
 
 
@@ -89,19 +91,19 @@ Choosing between port and wrapper
 If you work on an NLP project in Python you can choose between Python port and Python wrapper.
 Python port is what pystempel tries to achieve: translation from Java implementation to Python.
 Python wrapper is what I used in `tests`_: Python functions to call the original Java implementation of
-stemmer. You can find more about wrappers and ports in `Stackoverflow comparision post`_. Here, I
+stemmer. You can find more about wrappers and ports in `Stackoverflow comparison post`_. Here, I
 compare both approaches to help you decide:
 
-* **Same accuracy**. I have verified Python port by comparing its output
-  with output of original Java implementation for 331224 words from Free Polish dictionary
-  (`sjp.pl`_) and for 100% of words it returns same output.
-* **Similar performance**. For mentioned dataset both stemmer versions achieved comparable performance.
+* **Same accuracy**. I have verified the Python port by comparing its output
+  with the output of the original Java implementation for 331224 words from the Free Polish dictionary
+  (`sjp.pl`_) and for 100% of words, it returns same output.
+* **Similar performance**. For the mentioned dataset, both stemmer versions achieved comparable performance.
   Python port completed stemming in 4.4 seconds, while Python wrapper -- in 5 seconds (Intel Core
   i5-6000 3.30 GHz, 16GB RAM, Windows 10, OpenJDK)
-* **Different setup**. Python wrapper requires additionally installation of Cython and pyjnius.
+* **Different setup**. Python wrapper requires additional installation of Cython and pyjnius.
   Python wrapper will make also `debugging harder`_ (switching between two programming languages).
 
-.. _Stackoverflow comparision post: https://stackoverflow.com/questions/10113218/how-to-decide-when-to-wrap-port-write-from-scratch
+.. _Stackoverflow comparison post: https://stackoverflow.com/questions/10113218/how-to-decide-when-to-wrap-port-write-from-scratch
 .. _debugging harder: https://stackoverflow.com/questions/6970359/find-an-efficient-way-to-integrate-different-language-libraries-into-one-project
 .. _tests: tests/
 
@@ -145,7 +147,7 @@ Licensing
 ---------
 
 * **Code**: Most of the code is covered by `Egothor`_ Open Source License, an Apache-style license.
-  The rest of the code is covered by the `Apache License 2.0`_. This should be clear from a preamble
+  The `Apache License 2.0`_covers the rest of the code. This should be clear from the preamble
   of each file.
 
 * **Data**:
@@ -156,7 +158,7 @@ Licensing
     `Polimorf dictionary` it has been derived from. The copyright owner of both the stemming table
     and the dictionary is `Institute of Computer Science at Polish Academy of Science`_ (IPI PAN).
 
-  * Polish dictionary used by the unit tests comes from `sjp.pl`_  and is covered by
+  * The Polish dictionary used by the unit tests comes from `sjp.pl`_  and is covered by
     `Apache License 2.0`_ as well.
 
 .. _Egothor: https://www.egothor.org/product/egothor2/
